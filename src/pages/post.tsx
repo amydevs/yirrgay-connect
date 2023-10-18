@@ -28,7 +28,12 @@ import {
     linkDialogPlugin,
     imagePlugin,
     frontmatterPlugin,
-    tablePlugin
+    tablePlugin,
+    diffSourcePlugin,
+    DiffSourceToggleWrapper,
+    ConditionalContents,
+    ChangeCodeMirrorLanguage,
+    InsertFrontmatter,
 } from '@mdxeditor/editor';
 import { useTheme } from "next-themes";
 
@@ -38,6 +43,7 @@ const Post = () => {
     const theme = useTheme();
 
     const [mdxEditorClass, setMdxEditorClass] = useState('');
+    const [markdownContent, setMarkdownContent] = useState('');
 
     useEffect(() => {
         setMdxEditorClass((theme.resolvedTheme ?? theme.theme) === 'dark' ? 'dark-theme' : '')
@@ -49,39 +55,78 @@ const Post = () => {
         }
     }, [session]);
 
+    useEffect(() => {
+        console.log(markdownContent)
+    }, [markdownContent])
+
     return (
         <div className="w-full mt-16">
-            <div className="max-w-3xl mx-auto p-6">
-                <div className="inline">
-
-                </div>
+            <div className="max-w-6xl mx-auto p-6">
                 <MDXEditor
                     className={mdxEditorClass}
-                    markdown='# Hello world'
+                    markdown={markdownContent}
+                    onChange={setMarkdownContent}
+                    placeholder='Start writing...'
                     plugins={[
                         toolbarPlugin({
                             toolbarContents: () => (<>
-                                <UndoRedo />
-                                <Separator />
-                                <BoldItalicUnderlineToggles />
-                                <CodeToggle />
-                                <Separator />
-                                <ListsToggle />
-                                <Separator />
+                                <DiffSourceToggleWrapper>
+                                    <ConditionalContents
+                                        options={[
+                                        { when: (editor) => editor?.editorType === 'codeblock', contents: () => <ChangeCodeMirrorLanguage /> },
+                                        // { when: (editor) => editor?.editorType === 'sandpack', contents: () => <ShowSandpackInfo /> },
+                                        {
+                                            fallback: () => (
+                                            <>
+                                                <UndoRedo />
+                                                <Separator />
+                                                <BoldItalicUnderlineToggles />
+                                                <CodeToggle />
+                                                <Separator />
+                                                <ListsToggle />
+                                                <Separator />
 
-                                <CreateLink />
-                                <InsertImage />
+                                                {/* <ConditionalContents
+                                                options={[{ when: whenInAdmonition, contents: () => <ChangeAdmonitionType /> }, { fallback: () => <BlockTypeSelect /> }]}
+                                                /> */}
 
-                                <Separator />
+                                                <Separator />
 
-                                <InsertTable />
-                                <InsertThematicBreak />
+                                                <CreateLink />
+                                                <InsertImage />
 
-                                <Separator />
-                                <InsertCodeBlock />
+                                                <Separator />
+
+                                                <InsertTable />
+                                                <InsertThematicBreak />
+
+                                                <Separator />
+                                                <InsertCodeBlock />
+                                                {/* <InsertSandpack /> */}
+
+                                                {/* <ConditionalContents
+                                                options={[
+                                                    {
+                                                    when: (editorInFocus) => !whenInAdmonition(editorInFocus),
+                                                    contents: () => (
+                                                        <>
+                                                        <Separator />
+                                                        <InsertAdmonition />
+                                                        </>
+                                                    )
+                                                    }
+                                                ]}
+                                                /> */}
+
+                                                <Separator />
+                                            </>
+                                            )
+                                        }
+                                        ]}
+                                    />
+                                    </DiffSourceToggleWrapper>
                             </>)
                         }),
-
                         listsPlugin(),
                         quotePlugin(),
                         headingsPlugin({ allowedHeadingLevels: [1, 2, 3] }),
@@ -90,9 +135,9 @@ const Post = () => {
                         imagePlugin(),
                         tablePlugin(),
                         thematicBreakPlugin(),
-                        frontmatterPlugin(),
                         codeBlockPlugin({ defaultCodeBlockLanguage: 'txt' }),
                         codeMirrorPlugin({ codeBlockLanguages: { js: 'JavaScript', css: 'CSS', txt: 'text', tsx: 'TypeScript' } }),
+                        diffSourcePlugin({ viewMode: 'rich-text', diffMarkdown: 'boo' }),
                         markdownShortcutPlugin(),
                     ]}
                     contentEditableClassName="prose dark:prose-invert"
