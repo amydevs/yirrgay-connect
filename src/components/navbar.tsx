@@ -1,20 +1,96 @@
 import Link from "next/link";
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, navigationMenuTriggerStyle } from "./ui/navigation-menu";
 import React from "react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { Button, buttonVariants } from "./ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
+import { useRouter } from "next/router";
+import { cn } from "~/utils/cn";
+import { signOut, useSession } from "next-auth/react";
+
+const routes: Array<{
+    name: string,
+    href: string,
+    current?: boolean
+}> = [
+    {
+        name: "Home",
+        href: "/",
+    }
+];
 
 const NavBar = () => {
+    const router = useRouter();
+    const session = useSession()
+    
     return (
-        <NavigationMenu>
-            <NavigationMenuList>
-                <NavigationMenuItem>
-                    <Link href="/" legacyBehavior passHref>
-                        <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                            Home
-                        </NavigationMenuLink>
-                    </Link>
-                </NavigationMenuItem>
-            </NavigationMenuList>
-        </NavigationMenu>
+        <div className="fixed top-0 left-0 right-0 z-50 border-b bg-background">
+          <div className="flex h-16 items-center px-4">
+            <nav
+                className="flex items-center space-x-4 lg:space-x-6 mx-6"
+            >
+                {
+                    routes.map((route, i) => (
+                        <Link
+                            key={i}
+                            href={route.href}
+                            className={cn(
+                                "text-sm font-medium transition-colors hover:text-primary",
+                                route.href === router.basePath ? 'text-muted-foreground hover:text-primary' : 'text-primary'
+                            )}
+                        >
+                            {route.name}
+                        </Link>
+                    ))
+                }
+                
+            </nav>
+            <div className="ml-auto flex items-center space-x-4">
+                {
+                    session.data == null ? (
+                        <Link href='/login' className={buttonVariants({ variant: 'secondary' })}>
+                            Login
+                        </Link>
+                    ) : (
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                                <Avatar className="h-8 w-8">
+                                    <AvatarImage src={session.data.user.image as any} alt="@shadcn" />
+                                    <AvatarFallback>U</AvatarFallback>
+                                </Avatar>
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-56" align="end" forceMount>
+                                <DropdownMenuLabel className="font-normal">
+                                <div className="flex flex-col space-y-1">
+                                    <p className="text-sm font-medium leading-none">
+                                        { session.data.user.name }
+                                    </p>
+                                    <p className="text-xs leading-none text-muted-foreground">
+                                    { session.data.user.email }
+                                    </p>
+                                </div>
+                                </DropdownMenuLabel>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuGroup>
+                                <DropdownMenuItem>
+                                    Profile
+                                    <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>New Team</DropdownMenuItem>
+                                </DropdownMenuGroup>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem onClick={() => signOut()}>
+                                    Log out
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    )
+                }
+            </div>
+          </div>
+        </div>
     )
 };
 
