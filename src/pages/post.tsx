@@ -27,15 +27,23 @@ import {
     linkPlugin,
     linkDialogPlugin,
     imagePlugin,
-    frontmatterPlugin,
     tablePlugin,
     diffSourcePlugin,
     DiffSourceToggleWrapper,
     ConditionalContents,
     ChangeCodeMirrorLanguage,
-    InsertFrontmatter,
 } from '@mdxeditor/editor';
 import { useTheme } from "next-themes";
+import { getServerAuthSession } from "~/server/auth";
+import type { GetServerSideProps } from "next";
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    const session = await getServerAuthSession(ctx);
+    console.log(session);
+    return {
+        props: { session },
+    };
+};
 
 const Post = () => {
     const session = useSession();

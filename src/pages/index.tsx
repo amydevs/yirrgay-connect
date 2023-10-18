@@ -15,6 +15,17 @@ import {
 } from "~/components/ui/card";
 import { useSession } from "next-auth/react";
 
+import type { GetServerSideProps } from "next";
+import { getServerAuthSession } from "~/server/auth";
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getServerAuthSession(ctx);
+  console.log(session);
+  return {
+    props: { session },
+  };
+};
+
 const Home = () => {
     const session = useSession();
     return (
