@@ -8,6 +8,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 import { useRouter } from "next/router";
 import { cn } from "~/utils/cn";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { useTheme } from "next-themes";
 
 const routes: Array<{
     name: string,
@@ -22,8 +23,14 @@ const routes: Array<{
 
 const NavBar = () => {
     const router = useRouter();
+    const session = useSession();
+    const theme = useTheme();
 
-    const session = useSession()
+    const isDark = theme.resolvedTheme === 'dark';
+
+    const toggleTheme = () => {
+        theme.setTheme(isDark ? 'light' : 'dark');
+    }
     
     return (
         <div className="fixed top-0 left-0 right-0 z-50 border-b bg-background">
@@ -93,6 +100,9 @@ const NavBar = () => {
                                     </DropdownMenuItem>
                                     <DropdownMenuItem>
                                         Settings
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => toggleTheme()}>
+                                        { isDark ? 'Light Mode' : 'Dark Mode' }
                                     </DropdownMenuItem>
                                     </DropdownMenuGroup>
                                     <DropdownMenuSeparator />
