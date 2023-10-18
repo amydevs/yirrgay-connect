@@ -22,11 +22,17 @@ const routes: Array<{
 
 const NavBar = () => {
     const router = useRouter();
+
     const session = useSession()
     
     return (
         <div className="fixed top-0 left-0 right-0 z-50 border-b bg-background">
-          <div className="flex h-16 items-center px-4">
+          <div className="flex h-16 items-center px-8">
+            <Link href='/'>
+                <div className="text-center bg-primary-foreground rounded h-9 w-9 mr-6">
+                    <span className="leading-9">YC</span>
+                </div>
+            </Link>
             <nav
                 className="flex items-center space-x-4 lg:space-x-6 mx-6"
             >
@@ -37,7 +43,7 @@ const NavBar = () => {
                             href={route.href}
                             className={cn(
                                 "text-sm font-medium transition-colors hover:text-primary",
-                                route.href === router.basePath ? 'text-muted-foreground hover:text-primary' : 'text-primary'
+                                route.href !== router.pathname ? 'text-muted-foreground hover:text-primary' : 'text-primary'
                             )}
                         >
                             {route.name}
