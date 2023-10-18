@@ -4,13 +4,31 @@ import { useEffect, useState } from "react";
 import '@mdxeditor/editor/style.css';
 import {
     MDXEditor,
+
     headingsPlugin,
     listsPlugin,
     quotePlugin,
     thematicBreakPlugin,
+    codeBlockPlugin,
+    codeMirrorPlugin,
+
+    markdownShortcutPlugin,
+    toolbarPlugin,
     UndoRedo,
     BoldItalicUnderlineToggles,
-    toolbarPlugin,
+    CodeToggle,
+    CreateLink,
+    InsertCodeBlock,
+    InsertImage,
+    InsertTable,
+    InsertThematicBreak,
+    ListsToggle,
+    Separator,
+    linkPlugin,
+    linkDialogPlugin,
+    imagePlugin,
+    frontmatterPlugin,
+    tablePlugin
 } from '@mdxeditor/editor';
 import { useTheme } from "next-themes";
 
@@ -41,13 +59,41 @@ const Post = () => {
                     className={mdxEditorClass}
                     markdown='# Hello world'
                     plugins={[
-                        headingsPlugin(),
+                        toolbarPlugin({
+                            toolbarContents: () => (<>
+                                <UndoRedo />
+                                <Separator />
+                                <BoldItalicUnderlineToggles />
+                                <CodeToggle />
+                                <Separator />
+                                <ListsToggle />
+                                <Separator />
+
+                                <CreateLink />
+                                <InsertImage />
+
+                                <Separator />
+
+                                <InsertTable />
+                                <InsertThematicBreak />
+
+                                <Separator />
+                                <InsertCodeBlock />
+                            </>)
+                        }),
+
                         listsPlugin(),
                         quotePlugin(),
+                        headingsPlugin({ allowedHeadingLevels: [1, 2, 3] }),
+                        linkPlugin(),
+                        linkDialogPlugin(),
+                        imagePlugin(),
+                        tablePlugin(),
                         thematicBreakPlugin(),
-                        toolbarPlugin({
-                            toolbarContents: () => ( <> <UndoRedo /><BoldItalicUnderlineToggles /></>)
-                        })
+                        frontmatterPlugin(),
+                        codeBlockPlugin({ defaultCodeBlockLanguage: 'txt' }),
+                        codeMirrorPlugin({ codeBlockLanguages: { js: 'JavaScript', css: 'CSS', txt: 'text', tsx: 'TypeScript' } }),
+                        markdownShortcutPlugin(),
                     ]}
                     contentEditableClassName="prose dark:prose-invert"
                 />
