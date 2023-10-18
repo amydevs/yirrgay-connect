@@ -60,8 +60,8 @@ const Post = () => {
     }, [markdownContent])
 
     return (
-        <div className="w-full mt-16">
-            <div className="max-w-6xl mx-auto p-6">
+        <div className="w-full pt-16 h-screen">
+            <div className="max-w-6xl mx-auto p-6 border-l border-r h-full">
                 <MDXEditor
                     className={mdxEditorClass}
                     markdown={markdownContent}
