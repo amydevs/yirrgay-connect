@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { BellIcon } from '@radix-ui/react-icons';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 import { useRouter } from "next/router";
 import { cn } from "~/utils/cn";
@@ -60,9 +60,9 @@ const NavBar = () => {
                         </Button>
                     ) : (
                         <>
-                            <Button variant='outline' className="hidden sm:inline">
+                            <Link href='/post' className={buttonVariants({ variant: 'outline' })}>
                                 Create Post
-                            </Button>
+                            </Link>
                             <Button variant='ghost' size='icon'>
                                 <BellIcon />
                             </Button>
