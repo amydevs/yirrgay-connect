@@ -36,7 +36,7 @@ const NavBar = () => {
         <div className="fixed top-0 left-0 right-0 z-50 border-b bg-background">
           <div className="flex h-16 items-center px-8">
             <Link href='/'>
-                <div className="text-center bg-primary-foreground rounded h-9 w-9 mr-6">
+                <div className="text-center bg-secondary dark:bg-primary-foreground rounded h-9 w-9 mr-6">
                     <span className="leading-9">YC</span>
                 </div>
             </Link>
