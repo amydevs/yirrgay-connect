@@ -39,7 +39,6 @@ import type { GetServerSideProps } from "next";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const session = await getServerAuthSession(ctx);
-    console.log(session);
     return {
         props: { session },
     };
@@ -64,7 +63,7 @@ const Post = () => {
     }, [session]);
 
     useEffect(() => {
-        console.log(markdownContent)
+        return;
     }, [markdownContent])
 
     return (
