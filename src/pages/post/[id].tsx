@@ -1,9 +1,10 @@
-import type { GetServerSidePropsContext } from "next";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import '@mdxeditor/editor/style.css';
+import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
 import PostEditor from "~/components/editor";
+import { GetServerSidePropsContext } from "next";
 
 export function getServerSideProps({ params }: GetServerSidePropsContext<{ id: string }>) {
     const id = params?.id;
@@ -16,6 +17,7 @@ export function getServerSideProps({ params }: GetServerSidePropsContext<{ id: s
 
 const PostContent = () => {
     const router = useRouter();
+    const session = useSession();
 
     const id = router.query.id as string;
 
@@ -26,7 +28,7 @@ const PostContent = () => {
 
     return (
         <div className="w-full pt-16 min-h-screen grid">
-            <div className="max-w-6xl mx-auto border-l border-r self-stretch flex flex-col justify-between py-6">
+            <div className="max-w-6xl w-full mx-auto border-l border-r self-stretch flex flex-col justify-between py-6">
                 <PostEditor
                     readOnly
                     onChangeTitle={setTitle}
@@ -35,6 +37,7 @@ const PostContent = () => {
                     valueContent={content}
                 />
                 <div className="border-t px-6 pt-6 text-right">
+                    { postGet.data?.userId === session.data?.user.id ? <Button>Submit</Button> : <></> }
                 </div>
             </div>
         </div>

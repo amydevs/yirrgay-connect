@@ -17,6 +17,7 @@ import {
 } from "~/components/ui/card";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/utils/api";
+import Link from "next/link";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);
@@ -38,9 +39,11 @@ const Home = () => {
                     posts?.map((post, i) => (
                         <Card key={i}>
                             <CardHeader>
-                                <CardTitle>
-                                    { post.title }
-                                </CardTitle>
+                                <Link href={`/post/${post.id}`}>
+                                    <CardTitle>
+                                            { post.title }
+                                    </CardTitle>
+                                </Link>
                                 <CardDescription>
                                     Description
                                 </CardDescription>
@@ -65,33 +68,6 @@ const Home = () => {
                         </Card>
                     ))
                 }
-                <Card>
-                    <CardHeader>
-                        <CardTitle>
-                            Post
-                        </CardTitle>
-                        <CardDescription>
-                            Description
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        Content
-                    </CardContent>
-                    <CardFooter className="flex justify-between">
-                        {
-                            session.data?.user.role !== "Viewer" &&
-                            <Button className="rounded-full" size='icon' variant='ghost'>
-                                <ChatBubbleIcon className="h-5 w-5" />
-                            </Button>
-                        }
-                        <Button className="rounded-full" size='icon' variant='ghost'>
-                            <HeartIcon className="h-5 w-5" />
-                        </Button>
-                        <Button className="rounded-full" size='icon' variant='ghost'>
-                            <Share1Icon className="h-5 w-5" />
-                        </Button>
-                    </CardFooter>
-                </Card>
             </div>
             <Button className="sm:hidden fixed bottom-6 right-6 rounded-full w-16 h-16">
                 <Pencil1Icon className="h-6 w-6" />
