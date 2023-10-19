@@ -2,13 +2,13 @@ import Link from "next/link";
 // import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, navigationMenuTriggerStyle } from "./ui/navigation-menu";
 import React from "react";
 import { BellIcon } from '@radix-ui/react-icons';
+import { useRouter } from "next/router";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { useTheme } from "next-themes";
+import { cn } from "~/utils/cn";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Button, buttonVariants } from "./ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
-import { useRouter } from "next/router";
-import { cn } from "~/utils/cn";
-import { useSession, signIn, signOut } from "next-auth/react";
-import { useTheme } from "next-themes";
 
 const routes: Array<{
     name: string,

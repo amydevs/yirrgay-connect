@@ -1,10 +1,12 @@
-import { Button } from "~/components/ui/button";
+import type { GetServerSideProps } from "next";
 import {
     ChatBubbleIcon,
     HeartIcon,
     Share1Icon,
     Pencil1Icon,
 } from '@radix-ui/react-icons';
+import { useSession } from "next-auth/react";
+import { Button } from "~/components/ui/button";
 import {
     Card,
     CardContent,
@@ -13,9 +15,6 @@ import {
     CardHeader,
     CardTitle
 } from "~/components/ui/card";
-import { useSession } from "next-auth/react";
-
-import type { GetServerSideProps } from "next";
 import { getServerAuthSession } from "~/server/auth";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
