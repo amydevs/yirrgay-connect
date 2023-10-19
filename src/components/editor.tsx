@@ -3,8 +3,8 @@ import { Separator } from "@radix-ui/react-dropdown-menu";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import '@mdxeditor/editor/style.css';
-import styles from '~/styles/editor.module.css';
 import React from "react";
+import styles from '~/styles/editor.module.css';
 import { cn } from "~/utils/cn";
 import { Input } from "./ui/input";
 
