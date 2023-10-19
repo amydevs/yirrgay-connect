@@ -37,7 +37,7 @@ const PostNew = () => {
 
     return (
         <div className="w-full pt-16 min-h-screen grid">
-            <div className="max-w-6xl mx-auto border-l border-r self-stretch flex flex-col justify-between py-6">
+            <div className="max-w-6xl w-full mx-auto border-l border-r self-stretch flex flex-col justify-between py-6">
                 <PostEditor
                     onChangeTitle={setTitle}
                     valueTitle={title}
