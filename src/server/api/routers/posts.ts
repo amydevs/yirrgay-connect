@@ -38,6 +38,18 @@ export const postsRouter = createTRPCRouter({
         },
       });
     }),
+  delete: creatorProtectedProcedure
+    .input(z.object({
+      id: z.string()
+    }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.post.delete({
+        where: {
+          id: input.id,
+          userId: ctx.session.user.id,
+        },
+      });
+    }),
   getById: publicProcedure
     .input(z.object({
       id: z.string()

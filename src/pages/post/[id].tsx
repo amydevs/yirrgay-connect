@@ -31,15 +31,27 @@ const PostContent = () => {
     const [content, setContent] = useState(post?.content ?? '');
     const [isEditing, setIsEditing] = useState(false);
 
+    const ctx = api.useContext();
     const postsUpdate = api.posts.update.useMutation({
         onSuccess: () => setIsEditing(false)
     });
+    const postsDelete = api.posts.delete.useMutation({
+        onSuccess: async () => {
+            await router.push('/');
+            await ctx.posts.invalidate();
+        }
+    })
 
-    const submit = () => {
+    const updatePost = () => {
         postsUpdate.mutate({
             id,
             title,
             content,
+        });
+    };
+    const deletePost = () => {
+        postsDelete.mutate({
+            id,
         });
     };
 
@@ -72,7 +84,7 @@ const PostContent = () => {
                         <>
                             { 
                                 postGet.data?.userId === session.data?.user.id ? <>
-                                    <Button variant='destructive' onClick={() => setIsEditing(true)}>Delete</Button>
+                                    <Button variant='destructive' onClick={deletePost}>Delete</Button>
                                     <Button onClick={() => setIsEditing(true)}>Edit</Button>
                                 </> : <></> 
                             }
@@ -80,7 +92,7 @@ const PostContent = () => {
                     : 
                         <>
                             <Button onClick={() => setIsEditing(false)}>Cancel</Button>
-                            <Button onClick={submit}>Submit</Button>
+                            <Button onClick={updatePost}>Submit</Button>
                         </>
                     }
                 </div>
