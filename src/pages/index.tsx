@@ -35,8 +35,8 @@ const Home = () => {
         <div className="w-full mt-16">
             <div className="max-w-3xl mx-auto p-6 space-y-3">
                 {
-                    posts?.map((post) => (
-                        <Card>
+                    posts?.map((post, i) => (
+                        <Card key={i}>
                             <CardHeader>
                                 <CardTitle>
                                     { post.title }
