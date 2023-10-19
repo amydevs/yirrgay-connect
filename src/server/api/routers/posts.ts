@@ -38,6 +38,17 @@ export const postsRouter = createTRPCRouter({
         },
       });
     }),
+  getById: publicProcedure
+    .input(z.object({
+      id: z.string()
+    }))
+    .query(({ ctx, input }) => {
+      return ctx.prisma.post.findFirst({
+        where: {
+          id: input.id
+        }
+      });
+    }),
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.post.findMany({
       orderBy: { createdAt: 'desc' }
