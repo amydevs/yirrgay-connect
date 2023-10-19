@@ -85,55 +85,55 @@ const Post = () => {
                                     <DiffSourceToggleWrapper>
                                         <ConditionalContents
                                             options={[
-                                            { when: (editor) => editor?.editorType === 'codeblock', contents: () => <ChangeCodeMirrorLanguage /> },
-                                            // { when: (editor) => editor?.editorType === 'sandpack', contents: () => <ShowSandpackInfo /> },
-                                            {
-                                                fallback: () => (
-                                                <>
-                                                    <UndoRedo />
-                                                    <Separator />
-                                                    <BoldItalicUnderlineToggles />
-                                                    <CodeToggle />
-                                                    <Separator />
-                                                    <ListsToggle />
-                                                    <Separator />
+                                                { when: (editor) => editor?.editorType === 'codeblock', contents: () => <ChangeCodeMirrorLanguage /> },
+                                                // { when: (editor) => editor?.editorType === 'sandpack', contents: () => <ShowSandpackInfo /> },
+                                                {
+                                                    fallback: () => (
+                                                    <>
+                                                        <UndoRedo />
+                                                        <Separator />
+                                                        <BoldItalicUnderlineToggles />
+                                                        <CodeToggle />
+                                                        <Separator />
+                                                        <ListsToggle />
+                                                        <Separator />
 
-                                                    {/* <ConditionalContents
-                                                    options={[{ when: whenInAdmonition, contents: () => <ChangeAdmonitionType /> }, { fallback: () => <BlockTypeSelect /> }]}
-                                                    /> */}
+                                                        {/* <ConditionalContents
+                                                        options={[{ when: whenInAdmonition, contents: () => <ChangeAdmonitionType /> }, { fallback: () => <BlockTypeSelect /> }]}
+                                                        /> */}
 
-                                                    <Separator />
+                                                        <Separator />
 
-                                                    <CreateLink />
-                                                    <InsertImage />
+                                                        <CreateLink />
+                                                        <InsertImage />
 
-                                                    <Separator />
+                                                        <Separator />
 
-                                                    <InsertTable />
-                                                    <InsertThematicBreak />
+                                                        <InsertTable />
+                                                        <InsertThematicBreak />
 
-                                                    <Separator />
-                                                    <InsertCodeBlock />
-                                                    {/* <InsertSandpack /> */}
+                                                        <Separator />
+                                                        <InsertCodeBlock />
+                                                        {/* <InsertSandpack /> */}
 
-                                                    {/* <ConditionalContents
-                                                    options={[
-                                                        {
-                                                        when: (editorInFocus) => !whenInAdmonition(editorInFocus),
-                                                        contents: () => (
-                                                            <>
-                                                            <Separator />
-                                                            <InsertAdmonition />
-                                                            </>
-                                                        )
-                                                        }
-                                                    ]}
-                                                    /> */}
+                                                        {/* <ConditionalContents
+                                                        options={[
+                                                            {
+                                                            when: (editorInFocus) => !whenInAdmonition(editorInFocus),
+                                                            contents: () => (
+                                                                <>
+                                                                <Separator />
+                                                                <InsertAdmonition />
+                                                                </>
+                                                            )
+                                                            }
+                                                        ]}
+                                                        /> */}
 
-                                                    <Separator />
-                                                </>
-                                                )
-                                            }
+                                                        <Separator />
+                                                    </>
+                                                    )
+                                                }
                                             ]}
                                         />
                                         </DiffSourceToggleWrapper>
