@@ -46,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
 };
 
-const Post = () => {
+const PostNew = () => {
     const session = useSession();
     const router = useRouter();
     const theme = useTheme();
@@ -162,4 +162,4 @@ const Post = () => {
     );
 }
 
-export default Post;
+export default PostNew;

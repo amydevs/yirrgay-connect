@@ -57,6 +57,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   role          Role      @default(Creator)
+  posts         Post[]
 }
 
 model VerificationToken {
@@ -73,4 +74,13 @@ enum Role {
   Viewer
   Creator
   Moderator
+}
+
+model Post {
+  id      String @id @default(cuid())
+  title   String
+  content String @db.Text
+  likes   Int
+  userId  String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -67,7 +67,7 @@ const NavBar = () => {
                         </Button>
                     ) : (
                         <>
-                            <Link href='/post' className={buttonVariants({ variant: 'outline' })}>
+                            <Link href='/post/new' className={buttonVariants({ variant: 'outline' })}>
                                 Create Post
                             </Link>
                             <Button variant='ghost' size='icon'>
