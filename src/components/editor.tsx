@@ -55,7 +55,7 @@ const PostEditor = React.forwardRef<
                 placeholder='Start writing...'
                 readOnly={readOnly}
                 plugins={[
-                    toolbarPlugin({
+                    ...(!readOnly ? [toolbarPlugin({
                         toolbarContents: () => (<>
                             <DiffSourceToggleWrapper>
                                 <ConditionalContents
@@ -115,7 +115,7 @@ const PostEditor = React.forwardRef<
                                 />
                                 </DiffSourceToggleWrapper>
                         </>)
-                    }),
+                    })] : []),
                     listsPlugin(),
                     quotePlugin(),
                     headingsPlugin(),
