@@ -16,6 +16,7 @@ import {
     CardTitle
 } from "~/components/ui/card";
 import { getServerAuthSession } from "~/server/auth";
+import { api } from "~/utils/api";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);
@@ -26,9 +27,44 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
 const Home = () => {
     const session = useSession();
+    const postsQuery = api.posts.getAll.useQuery();
+    
+    const posts = postsQuery.data;
+
     return (
         <div className="w-full mt-16">
-            <div className="max-w-3xl mx-auto p-6">
+            <div className="max-w-3xl mx-auto p-6 space-y-3">
+                {
+                    posts?.map((post) => (
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>
+                                    { post.title }
+                                </CardTitle>
+                                <CardDescription>
+                                    Description
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                Content
+                            </CardContent>
+                            <CardFooter className="flex justify-between">
+                                {
+                                    session.data?.user.role !== "Viewer" &&
+                                    <Button className="rounded-full" size='icon' variant='ghost'>
+                                        <ChatBubbleIcon className="h-5 w-5" />
+                                    </Button>
+                                }
+                                <Button className="rounded-full" size='icon' variant='ghost'>
+                                    <HeartIcon className="h-5 w-5" />
+                                </Button>
+                                <Button className="rounded-full" size='icon' variant='ghost'>
+                                    <Share1Icon className="h-5 w-5" />
+                                </Button>
+                            </CardFooter>
+                        </Card>
+                    ))
+                }
                 <Card>
                     <CardHeader>
                         <CardTitle>
