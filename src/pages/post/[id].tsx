@@ -1,11 +1,11 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { type GetServerSidePropsContext } from "next";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
 import PostEditor from "~/components/editor";
-import { GetServerSidePropsContext } from "next";
 
 
 export function getServerSideProps({ params }: GetServerSidePropsContext<{ id: string }>) {
