@@ -14,6 +14,7 @@ interface EditorProps {
     valueTitle?: string;
     onChangeContent?: (content: string) => unknown;
     valueContent?: string;
+    diffContent?: string;
 }
 
 const PostEditor = React.forwardRef<
@@ -26,6 +27,7 @@ const PostEditor = React.forwardRef<
     valueTitle,
     onChangeContent,
     valueContent,
+    diffContent,
     ...props
 }, ref) => {
     const theme = useTheme();
@@ -124,7 +126,7 @@ const PostEditor = React.forwardRef<
                     thematicBreakPlugin(),
                     codeBlockPlugin({ defaultCodeBlockLanguage: 'txt' }),
                     codeMirrorPlugin({ codeBlockLanguages: { js: 'JavaScript', css: 'CSS', txt: 'text', tsx: 'TypeScript' } }),
-                    diffSourcePlugin({ viewMode: 'rich-text', diffMarkdown: 'boo' }),
+                    diffSourcePlugin({ viewMode: 'rich-text', diffMarkdown: diffContent ?? valueContent }),
                     markdownShortcutPlugin(),
                 ]}
                 contentEditableClassName="prose dark:prose-invert"
