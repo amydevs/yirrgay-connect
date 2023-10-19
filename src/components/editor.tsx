@@ -8,7 +8,6 @@ import React from "react";
 import { cn } from "~/utils/cn";
 import { Input } from "./ui/input";
 
-
 interface EditorProps {
     readOnly?: boolean;
     onChangeTitle?: (title: string) => unknown;

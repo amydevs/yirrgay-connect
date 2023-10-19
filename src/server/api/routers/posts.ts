@@ -46,6 +46,9 @@ export const postsRouter = createTRPCRouter({
       return ctx.prisma.post.findFirst({
         where: {
           id: input.id
+        },
+        include: {
+          user: true,
         }
       });
     }),
