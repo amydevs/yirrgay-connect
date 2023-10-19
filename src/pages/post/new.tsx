@@ -33,6 +33,7 @@ import {
     DiffSourceToggleWrapper,
     ConditionalContents,
     ChangeCodeMirrorLanguage,
+    BlockTypeSelect,
 } from '@mdxeditor/editor';
 import { useTheme } from "next-themes";
 import { getServerAuthSession } from "~/server/auth";
@@ -84,7 +85,7 @@ const PostNew = () => {
                         onChange={(evt) => setTitle(evt.target.value)}
                         placeholder="Enter A Title..."
                         autoFocus
-                        className="m-1 prose-invert border-none focus-visible:ring-transparent text-4xl"
+                        className="prose-invert border-none focus-visible:ring-transparent text-4xl"
                     />
                     <MDXEditor
                         className={mdxEditorClass}
@@ -109,6 +110,8 @@ const PostNew = () => {
                                                         <Separator />
                                                         <ListsToggle />
                                                         <Separator />
+
+                                                        <BlockTypeSelect />
 
                                                         {/* <ConditionalContents
                                                         options={[{ when: whenInAdmonition, contents: () => <ChangeAdmonitionType /> }, { fallback: () => <BlockTypeSelect /> }]}
@@ -153,7 +156,7 @@ const PostNew = () => {
                             }),
                             listsPlugin(),
                             quotePlugin(),
-                            headingsPlugin({ allowedHeadingLevels: [1, 2, 3] }),
+                            headingsPlugin(),
                             linkPlugin(),
                             linkDialogPlugin(),
                             imagePlugin(),
@@ -167,8 +170,8 @@ const PostNew = () => {
                         contentEditableClassName="prose dark:prose-invert"
                     />
                 </div>
-                <div onClick={submit} className="border-t px-6 pt-6 text-right">
-                    <Button>Submit</Button>
+                <div className="border-t px-6 pt-6 text-right">
+                    <Button onClick={submit}>Submit</Button>
                 </div>
             </div>
         </div>
