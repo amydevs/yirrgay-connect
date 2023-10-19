@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useTheme } from "next-themes";
 import { cn } from "~/utils/cn";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { Button, buttonVariants } from "./ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 
@@ -62,7 +62,7 @@ const NavBar = () => {
             <div className="ml-auto flex items-center space-x-4">
                 {
                     session.data == null ? (
-                        <Button variant='secondary' onClick={() => signIn('auth0')}>
+                        <Button variant='secondary' onClick={() => void signIn('auth0')}>
                             Login
                         </Button>
                     ) : (
@@ -101,12 +101,12 @@ const NavBar = () => {
                                     <DropdownMenuItem>
                                         Settings
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => toggleTheme()}>
+                                    <DropdownMenuItem onClick={() => void toggleTheme()}>
                                         { isDark ? 'Light Mode' : 'Dark Mode' }
                                     </DropdownMenuItem>
                                     </DropdownMenuGroup>
                                     <DropdownMenuSeparator />
-                                    <DropdownMenuItem onClick={() => signOut()}>
+                                    <DropdownMenuItem onClick={() => void signOut()}>
                                         Log out
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>

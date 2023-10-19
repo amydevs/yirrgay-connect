@@ -60,7 +60,7 @@ const Post = () => {
 
     useEffect(() => {
         if (session.status === 'unauthenticated') {
-            router.push('/');
+            void router.push('/');
         }
     }, [session, router]);
 
