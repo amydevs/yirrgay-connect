@@ -3,6 +3,7 @@ import { Separator } from "@radix-ui/react-dropdown-menu";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import '@mdxeditor/editor/style.css';
+import styles from '~/styles/editor.module.css';
 import React from "react";
 import { cn } from "~/utils/cn";
 import { Input } from "./ui/input";
@@ -49,19 +50,18 @@ const PostEditor = React.forwardRef<
                 disabled={readOnly}
             />
             <MDXEditor
-                className={mdxEditorClass}
+                className={cn(mdxEditorClass, readOnly && styles.readOnlyEditor)}
                 markdown={valueContent ?? ''}
                 onChange={onChangeContent}
                 placeholder='Start writing...'
                 readOnly={readOnly}
                 plugins={[
-                    ...(!readOnly ? [toolbarPlugin({
+                    toolbarPlugin({
                         toolbarContents: () => (<>
                             <DiffSourceToggleWrapper>
                                 <ConditionalContents
                                     options={[
                                         { when: (editor) => editor?.editorType === 'codeblock', contents: () => <ChangeCodeMirrorLanguage /> },
-                                        // { when: (editor) => editor?.editorType === 'sandpack', contents: () => <ShowSandpackInfo /> },
                                         {
                                             fallback: () => (
                                             <>
@@ -115,7 +115,7 @@ const PostEditor = React.forwardRef<
                                 />
                                 </DiffSourceToggleWrapper>
                         </>)
-                    })] : []),
+                    }),
                     listsPlugin(),
                     quotePlugin(),
                     headingsPlugin(),
