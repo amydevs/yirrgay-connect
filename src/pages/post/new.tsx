@@ -40,13 +40,6 @@ import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-    const session = await getServerAuthSession(ctx);
-    return {
-        props: { session },
-    };
-};
-
 const PostNew = () => {
     const session = useSession();
     const router = useRouter();
@@ -87,7 +80,12 @@ const PostNew = () => {
         <div className="w-full pt-16 h-screen">
             <div className="max-w-6xl mx-auto border-l border-r h-full flex flex-col justify-between py-6">
                 <div className="space-y-3">
-                    <Input onChange={(evt) => setTitle(evt.target.value)} placeholder="Enter A Title..." autoFocus className="prose-invert border-none focus-visible:ring-transparent text-4xl" />
+                    <Input 
+                        onChange={(evt) => setTitle(evt.target.value)}
+                        placeholder="Enter A Title..."
+                        autoFocus
+                        className="m-1 prose-invert border-none focus-visible:ring-transparent text-4xl"
+                    />
                     <MDXEditor
                         className={mdxEditorClass}
                         markdown={markdownContent}
