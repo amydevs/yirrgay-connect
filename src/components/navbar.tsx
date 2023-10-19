@@ -77,7 +77,7 @@ const NavBar = () => {
                                 <DropdownMenuTrigger asChild>
                                     <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                                     <Avatar className="h-8 w-8">
-                                        <AvatarImage src={session.data.user.image as any} alt="@shadcn" />
+                                        <AvatarImage src={session.data.user.image ?? ''} alt="@shadcn" />
                                         <AvatarFallback>U</AvatarFallback>
                                     </Avatar>
                                     </Button>

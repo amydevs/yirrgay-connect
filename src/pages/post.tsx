@@ -1,3 +1,4 @@
+import type { GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -35,9 +36,7 @@ import {
 } from '@mdxeditor/editor';
 import { useTheme } from "next-themes";
 import { getServerAuthSession } from "~/server/auth";
-import type { GetServerSideProps } from "next";
 import { Input } from "~/components/ui/input";
-import { Textarea } from "~/components/ui/textarea";
 import { Button } from "~/components/ui/button";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
@@ -63,7 +62,7 @@ const Post = () => {
         if (session.status === 'unauthenticated') {
             router.push('/');
         }
-    }, [session]);
+    }, [session, router]);
 
     useEffect(() => {
         return;
