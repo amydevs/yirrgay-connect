@@ -80,7 +80,7 @@ model Post {
   id      String @id @default(cuid())
   title   String
   content String @db.Text
-  likes   Int
+  likes   BigInt @default(0)
   userId  String
   user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

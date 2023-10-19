@@ -119,6 +119,7 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   });
 });
 
+
 /**
  * Protected (authenticated) procedure
  *
@@ -128,3 +129,26 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);
+
+/** Reusable middleware that enforces users are not `Viewer` before running the procedure. */
+const enforceUserIsNotViewer = t.middleware(({ ctx, next }) => {
+  if (!ctx.session?.user || ctx.session.user.role === 'Viewer') {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+  return next({
+    ctx: {
+      // infers the `session` as non-nullable
+      session: { ...ctx.session, user: ctx.session.user },
+    },
+  });
+});
+
+/**
+ * Protected (authenticated) procedure
+ *
+ * If you want a query or mutation to ONLY be accessible to non-`Viewer` users, use this. It verifies
+ * the session is valid and guarantees `ctx.session.user.role` is not `Viewer`.
+ *
+ * @see https://trpc.io/docs/procedures
+ */
+export const creatorProtectedProcedure = t.procedure.use(enforceUserIsAuthed).use(enforceUserIsNotViewer);

@@ -38,6 +38,7 @@ import { useTheme } from "next-themes";
 import { getServerAuthSession } from "~/server/auth";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
+import { api } from "~/utils/api";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const session = await getServerAuthSession(ctx);
@@ -51,7 +52,18 @@ const PostNew = () => {
     const router = useRouter();
     const theme = useTheme();
 
+    const ctx = api.useContext();
+    const postsCreate = api.posts.create.useMutation({
+        onSuccess: async (post) => {
+            await Promise.all([
+                router.push(`/post/${post.id}`),
+                ctx.posts.getAll.invalidate()
+            ])
+        }
+    });
+
     const [mdxEditorClass, setMdxEditorClass] = useState('');
+    const [title, setTitle] = useState('');
     const [markdownContent, setMarkdownContent] = useState('');
 
     useEffect(() => {
@@ -64,15 +76,18 @@ const PostNew = () => {
         }
     }, [session, router]);
 
-    useEffect(() => {
-        return;
-    }, [markdownContent])
+    const submit = () => {
+        postsCreate.mutate({
+            title,
+            content: markdownContent,
+        });
+    };
 
     return (
         <div className="w-full pt-16 h-screen">
             <div className="max-w-6xl mx-auto border-l border-r h-full flex flex-col justify-between py-6">
                 <div className="space-y-3">
-                    <Input placeholder="Enter A Title..." autoFocus className="prose-invert border-none focus-visible:ring-transparent text-4xl" />
+                    <Input onChange={(evt) => setTitle(evt.target.value)} placeholder="Enter A Title..." autoFocus className="prose-invert border-none focus-visible:ring-transparent text-4xl" />
                     <MDXEditor
                         className={mdxEditorClass}
                         markdown={markdownContent}
@@ -154,7 +169,7 @@ const PostNew = () => {
                         contentEditableClassName="prose dark:prose-invert"
                     />
                 </div>
-                <div className="border-t px-6 pt-6 text-right">
+                <div onClick={submit} className="border-t px-6 pt-6 text-right">
                     <Button>Submit</Button>
                 </div>
             </div>
