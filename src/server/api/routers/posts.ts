@@ -17,7 +17,7 @@ export const postsRouter = createTRPCRouter({
           title: input.title,
           content: input.content,
           userId: ctx.session.user.id
-        }
+        },
       });
     }),
   update: creatorProtectedProcedure
@@ -35,14 +35,12 @@ export const postsRouter = createTRPCRouter({
         data: {
           title: input.title,
           content: input.content,
-        }
+        },
       });
     }),
   getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.post.findMany();
+    return ctx.prisma.post.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
   }),
-
-//   getSecretMessage: protectedProcedure.query(() => {
-//     return "you can now see this secret message!";
-//   }),
 });

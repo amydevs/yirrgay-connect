@@ -83,4 +83,6 @@ model Post {
   likes   BigInt @default(0)
   userId  String
   user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
