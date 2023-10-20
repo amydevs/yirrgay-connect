@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type GetServerSidePropsContext } from "next";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
@@ -29,7 +29,15 @@ const PostContent = () => {
 
     const [title, setTitle] = useState(post?.title ?? '');
     const [content, setContent] = useState(post?.content ?? '');
+    const [createdAt, setCreatedAt] = useState(post?.createdAt.toISOString());
     const [isEditing, setIsEditing] = useState(false);
+
+    useEffect(() => {
+        if (post == null) {
+            return;
+        }
+        setCreatedAt(post.createdAt.toDateString());
+    }, [post]);
 
     const ctx = api.useContext();
     const postsUpdate = api.posts.update.useMutation({
@@ -67,7 +75,7 @@ const PostContent = () => {
                         <div className="pl-3 flex-1">
                             {post?.user.name}
                             <p className="text-xs">
-                                Posted on ...
+                                Posted on {createdAt}
                             </p>
                         </div>
                     </div>

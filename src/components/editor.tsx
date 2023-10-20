@@ -39,15 +39,23 @@ const PostEditor = React.forwardRef<
     }, [theme]);
 
     return (
-        <div ref={ref} className={cn('space-y-3', className)} {...props}>
-            <Input 
-                onChange={(evt) => {onChangeTitle?.(evt.target.value)}}
-                placeholder="Enter A Title..."
-                autoFocus
-                className="prose-invert border-none focus-visible:ring-transparent ring-inset text-4xl disabled:opacity-100 disabled:cursor-auto"
-                value={valueTitle}
-                disabled={readOnly}
-            />
+        <div ref={ref} className={cn('space-y-3 prose-lg dark:prose-invert', className)} {...props}>
+            {
+                !readOnly ? (
+                    <Input 
+                        onChange={(evt) => {onChangeTitle?.(evt.target.value)}}
+                        placeholder="Enter A Title..."
+                        autoFocus
+                        className="border-none focus-visible:ring-transparent ring-inset text-5xl"
+                        value={valueTitle}
+                    />
+                ) : (
+                    <h1 className="px-3 mb-0">
+                        { valueTitle }
+                    </h1>
+                )
+            }
+            
             <MDXEditor
                 className={cn(mdxEditorClass, readOnly && styles.readOnlyEditor)}
                 markdown={valueContent ?? ''}
