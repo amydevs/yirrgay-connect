@@ -1,23 +1,11 @@
 import type { GetServerSideProps } from "next";
 import {
-    ChatBubbleIcon,
-    HeartIcon,
-    Share1Icon,
     Pencil1Icon,
 } from '@radix-ui/react-icons';
-import { useSession } from "next-auth/react";
-import Link from "next/link";
 import { Button } from "~/components/ui/button";
-import {
-    Card,
-    CardFooter,
-    CardHeader,
-    CardTitle
-} from "~/components/ui/card";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/utils/api";
-import PostAvatar from "~/components/post/avatar";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "~/components/ui/dropdown-menu";
+import PostCard from "~/components/post/card";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);
@@ -27,7 +15,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 };
 
 const Home = () => {
-    const session = useSession();
     const postsQuery = api.posts.getAll.useQuery();
     
     const posts = postsQuery.data;
@@ -37,39 +24,7 @@ const Home = () => {
             <div className="max-w-3xl mx-auto p-6 space-y-3">
                 {
                     posts?.map((post, i) => (
-                        <Card key={i}>
-                            <CardHeader className="space-y-6">
-                                <PostAvatar post={post ?? undefined} />
-                                <Link href={`/post/${post.id}`}>
-                                    <CardTitle>
-                                            { post.title }
-                                    </CardTitle>
-                                </Link>
-                            </CardHeader>
-                            <CardFooter className="flex justify-between">
-                                {
-                                    session.data?.user.role !== "Viewer" &&
-                                    <Button className="rounded-full" size='icon' variant='ghost'>
-                                        <ChatBubbleIcon className="h-5 w-5" />
-                                    </Button>
-                                }
-                                <Button className="rounded-full" size='icon' variant='ghost'>
-                                    <HeartIcon className="h-5 w-5" />
-                                </Button>
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger asChild>
-                                        <Button className="rounded-full" size='icon' variant='ghost'>
-                                            <Share1Icon className="h-5 w-5" />
-                                        </Button>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent className="w-56" align="end" forceMount>
-                                        <DropdownMenuItem onClick={() => void navigator.clipboard.writeText(`${document.location.origin}/post/${post.id}`)}>
-                                            Copy Link
-                                        </DropdownMenuItem>
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
-                            </CardFooter>
-                        </Card>
+                        <PostCard post={post} key={i} />
                     ))
                 }
             </div>
