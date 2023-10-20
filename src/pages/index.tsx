@@ -19,6 +19,8 @@ import {
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/utils/api";
 import PostAvatar from "~/components/post/avatar";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuGroup, DropdownMenuItem } from "~/components/ui/dropdown-menu";
+import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);
@@ -57,9 +59,19 @@ const Home = () => {
                                 <Button className="rounded-full" size='icon' variant='ghost'>
                                     <HeartIcon className="h-5 w-5" />
                                 </Button>
-                                <Button className="rounded-full" size='icon' variant='ghost'>
-                                    <Share1Icon className="h-5 w-5" />
-                                </Button>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button className="rounded-full" size='icon' variant='ghost'>
+                                            <Share1Icon className="h-5 w-5" />
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent className="w-56" align="end" forceMount>
+                                        <DropdownMenuItem onClick={() => {navigator.clipboard.writeText(`${document.location.origin}/post/${post.id}`)}}>
+                                            Copy Link
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
+                                
                             </CardFooter>
                         </Card>
                     ))
