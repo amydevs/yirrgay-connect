@@ -6,7 +6,7 @@ import '@mdxeditor/editor/style.css';
 import React from "react";
 import styles from '~/styles/editor.module.css';
 import { cn } from "~/utils/cn";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 
 interface EditorProps {
     readOnly?: boolean;
