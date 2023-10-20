@@ -58,6 +58,7 @@ model User {
   sessions      Session[]
   role          Role      @default(Creator)
   posts         Post[]
+  likes         Like[]
 }
 
 model VerificationToken {
@@ -77,12 +78,23 @@ enum Role {
 }
 
 model Post {
-  id      String @id @default(cuid())
-  title   String
-  content String @db.Text
-  likes   BigInt @default(0)
-  userId  String
-  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  title     String
+  content   String   @db.Text
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likes     Like[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@index([userId, postId])
 }

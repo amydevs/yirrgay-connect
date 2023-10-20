@@ -61,13 +61,14 @@ export const postsRouter = createTRPCRouter({
         },
         include: {
           user: true,
+          likes: true,
         }
       });
     }),
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.post.findMany({
       orderBy: { createdAt: 'desc' },
-      include: { user: true }
+      include: { user: true, likes: true }
     });
   }),
 });
