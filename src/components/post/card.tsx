@@ -3,11 +3,11 @@ import { type Prisma } from "@prisma/client";
 import { ChatBubbleIcon, Share1Icon, HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
 import Link from 'next/link';
 import { useSession } from "next-auth/react";
+import { api } from "~/utils/api";
 import PostAvatar from "./avatar";
 import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "../ui/dropdown-menu";
 import { Card, CardHeader, CardTitle, CardFooter } from "../ui/card";
-import { api } from "~/utils/api";
 
 interface PostCardProps {
     post: Prisma.PostGetPayload<{
@@ -30,8 +30,6 @@ const PostCard = React.forwardRef<
     
     const [isLiked, setIsLiked] = useState(false);
 
-    const [lastLikeProm, setLastLikeProm] = useState<Promise<boolean> | null>(null);
-
     const postsLike = api.posts.like.useMutation({
         onSuccess: () => {
             setIsLiked(true);
@@ -50,7 +48,7 @@ const PostCard = React.forwardRef<
         setIsLiked(
             post.likes.findIndex((like) => like.userId === session.data.user.id) !== -1
         );
-    }, [post.likes]);
+    }, [post.likes, session.data]);
     
     const toggleLike = () => {
         const desiredIsLiked = !isLiked;
