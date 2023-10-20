@@ -66,7 +66,7 @@ const Home = () => {
                                         </Button>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent className="w-56" align="end" forceMount>
-                                        <DropdownMenuItem onClick={() => {navigator.clipboard.writeText(`${document.location.origin}/post/${post.id}`)}}>
+                                        <DropdownMenuItem onClick={() => void navigator.clipboard.writeText(`${document.location.origin}/post/${post.id}`)}>
                                             Copy Link
                                         </DropdownMenuItem>
                                     </DropdownMenuContent>
