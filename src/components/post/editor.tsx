@@ -128,7 +128,18 @@ const PostEditor = React.forwardRef<
                     headingsPlugin(),
                     linkPlugin(),
                     linkDialogPlugin(),
-                    imagePlugin(),
+                    imagePlugin({
+                        imageUploadHandler: async (image) => {
+                            const result: string = await new Promise((resolve, reject) => {
+                                const reader = new FileReader();
+                                reader.onload = () => resolve(reader.result as string);
+                                reader.onerror = () => reject(reader.error);
+                                reader.readAsDataURL(image);
+                            });
+
+                            return result;
+                        },
+                    }),
                     tablePlugin(),
                     thematicBreakPlugin(),
                     codeBlockPlugin({ defaultCodeBlockLanguage: 'txt' }),
