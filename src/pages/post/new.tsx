@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
-import PostEditor from "~/components/editor";
+import PostEditor from "~/components/post/editor";
 
 const PostNew = () => {
     const session = useSession();

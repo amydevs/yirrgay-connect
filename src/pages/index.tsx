@@ -18,6 +18,7 @@ import {
 } from "~/components/ui/card";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/utils/api";
+import PostAvatar from "~/components/post/avatar";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);
@@ -38,19 +39,14 @@ const Home = () => {
                 {
                     posts?.map((post, i) => (
                         <Card key={i}>
-                            <CardHeader>
+                            <CardHeader className="space-y-6">
+                                <PostAvatar post={post ?? undefined} />
                                 <Link href={`/post/${post.id}`}>
                                     <CardTitle>
                                             { post.title }
                                     </CardTitle>
                                 </Link>
-                                <CardDescription>
-                                    Description
-                                </CardDescription>
                             </CardHeader>
-                            <CardContent>
-                                Content
-                            </CardContent>
                             <CardFooter className="flex justify-between">
                                 {
                                     session.data?.user.role !== "Viewer" &&

@@ -5,7 +5,8 @@ import { type GetServerSidePropsContext } from "next";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
-import PostEditor from "~/components/editor";
+import PostEditor from "~/components/post/editor";
+import PostAvatar from "~/components/post/avatar";
 
 
 export function getServerSideProps({ params }: GetServerSidePropsContext<{ id: string }>) {
@@ -31,13 +32,6 @@ const PostContent = () => {
     const [content, setContent] = useState(post?.content ?? '');
     const [createdAt, setCreatedAt] = useState(post?.createdAt.toISOString());
     const [isEditing, setIsEditing] = useState(false);
-
-    useEffect(() => {
-        if (post == null) {
-            return;
-        }
-        setCreatedAt(post.createdAt.toDateString());
-    }, [post]);
 
     const ctx = api.useContext();
     const postsUpdate = api.posts.update.useMutation({
@@ -67,18 +61,7 @@ const PostContent = () => {
         <div className="w-full pt-16 min-h-screen grid">
             <div className="max-w-6xl w-full mx-auto border-l border-r self-stretch flex flex-col justify-between py-6">
                 <div className="space-y-3">
-                    <div className="flex flex-1 mx-3 items-start">
-                        <Avatar>
-                            <AvatarImage src={post?.user.image ?? ''} alt={post?.user.name ?? ''} />
-                            <AvatarFallback>U</AvatarFallback>
-                        </Avatar>
-                        <div className="pl-3 flex-1">
-                            {post?.user.name}
-                            <p className="text-xs">
-                                Posted on {createdAt}
-                            </p>
-                        </div>
-                    </div>
+                    <PostAvatar className="mx-3" post={post ?? undefined} />
                     <PostEditor
                         readOnly={!isEditing}
                         onChangeTitle={setTitle}
