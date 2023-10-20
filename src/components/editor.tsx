@@ -136,7 +136,7 @@ const PostEditor = React.forwardRef<
                     diffSourcePlugin({ viewMode: 'rich-text', diffMarkdown: diffContent ?? valueContent }),
                     markdownShortcutPlugin(),
                 ]}
-                contentEditableClassName="prose dark:prose-invert"
+                contentEditableClassName="prose-lg dark:prose-invert"
             />
         </div>
     );
