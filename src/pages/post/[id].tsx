@@ -1,8 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { type GetServerSidePropsContext } from "next";
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
 import PostEditor from "~/components/post/editor";
@@ -30,7 +29,6 @@ const PostContent = () => {
 
     const [title, setTitle] = useState(post?.title ?? '');
     const [content, setContent] = useState(post?.content ?? '');
-    const [createdAt, setCreatedAt] = useState(post?.createdAt.toISOString());
     const [isEditing, setIsEditing] = useState(false);
 
     const ctx = api.useContext();
