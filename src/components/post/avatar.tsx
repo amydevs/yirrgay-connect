@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { type Prisma } from "@prisma/client";
 import { cn } from "~/utils/cn";
-import { Prisma } from "@prisma/client";
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 
 interface PostAvatarProps {
@@ -44,5 +44,7 @@ const PostAvatar = React.forwardRef<
         </div>
     );
 });
+
+PostAvatar.displayName = 'PostAvatar';
 
 export default PostAvatar;

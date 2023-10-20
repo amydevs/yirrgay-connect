@@ -10,8 +10,6 @@ import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import {
     Card,
-    CardContent,
-    CardDescription,
     CardFooter,
     CardHeader,
     CardTitle
@@ -19,8 +17,7 @@ import {
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/utils/api";
 import PostAvatar from "~/components/post/avatar";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuGroup, DropdownMenuItem } from "~/components/ui/dropdown-menu";
-import { useRouter } from "next/router";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "~/components/ui/dropdown-menu";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);
