@@ -68,7 +68,6 @@ const Home = () => {
                                         </DropdownMenuItem>
                                     </DropdownMenuContent>
                                 </DropdownMenu>
-                                
                             </CardFooter>
                         </Card>
                     ))
