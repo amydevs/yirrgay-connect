@@ -2,6 +2,7 @@ import { z } from "zod";
 import {
   createTRPCRouter,
   creatorProtectedProcedure,
+  protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
 
@@ -71,4 +72,30 @@ export const postsRouter = createTRPCRouter({
       include: { user: true, likes: true }
     });
   }),
+  like: protectedProcedure
+    .input(z.object({
+      id: z.string(),
+    }))
+    .mutation(({ctx, input}) => {
+      return ctx.prisma.like.create({
+        data: {
+          postId: input.id,
+          userId: ctx.session.user.id
+        }
+      });
+    }),
+  unlike: protectedProcedure
+    .input(z.object({
+      id: z.string(),
+    }))
+    .mutation(({ctx, input}) => {
+      return ctx.prisma.like.delete({
+        where: {
+          userId_postId: {
+            postId: input.id,
+            userId: ctx.session.user.id
+          }
+        }
+      });
+    })
 });
