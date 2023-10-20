@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { type Prisma } from "@prisma/client";
-import { ChatBubbleIcon, Share1Icon, HeartIcon } from "@radix-ui/react-icons";
+import { ChatBubbleIcon, Share1Icon, HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
 import Link from 'next/link';
 import { useSession } from "next-auth/react";
 import PostAvatar from "./avatar";
 import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "../ui/dropdown-menu";
 import { Card, CardHeader, CardTitle, CardFooter } from "../ui/card";
+import { api } from "~/utils/api";
 
 interface PostCardProps {
     post: Prisma.PostGetPayload<{
@@ -26,6 +27,45 @@ const PostCard = React.forwardRef<
     ...props
 }, ref) => {
     const session = useSession();
+    
+    const [isLiked, setIsLiked] = useState(false);
+
+    const [lastLikeProm, setLastLikeProm] = useState<Promise<boolean> | null>(null);
+
+    const postsLike = api.posts.like.useMutation({
+        onSuccess: () => {
+            setIsLiked(true);
+        }
+    });
+    const postsUnlike = api.posts.unlike.useMutation({
+        onSuccess: () => {
+            setIsLiked(false);
+        }
+    });
+
+    useEffect(() => {
+        if (session.data == null) {
+            return;
+        }
+        setIsLiked(
+            post.likes.findIndex((like) => like.userId === session.data.user.id) !== -1
+        );
+    }, [post.likes]);
+    
+    const toggleLike = () => {
+        const desiredIsLiked = !isLiked;
+        setIsLiked(desiredIsLiked);
+        const input = { id: post.id };
+        let prom: Promise<boolean>;
+        if (desiredIsLiked) {
+            prom = postsLike.mutateAsync(input).then(() => true);
+        }
+        else {
+            prom = postsUnlike.mutateAsync(input).then(() => false);
+        }
+        return prom;
+    };
+    
     return (
         <Card ref={ref} className={className} {...props} >
             <CardHeader className="space-y-6">
@@ -43,8 +83,11 @@ const PostCard = React.forwardRef<
                         <ChatBubbleIcon className="h-5 w-5" />
                     </Button>
                 }
-                <Button className="rounded-full" size='icon' variant='ghost'>
-                    <HeartIcon className="h-5 w-5" />
+                <Button onClick={() => void toggleLike()} className="rounded-full" size='icon' variant='ghost'>
+                    { !isLiked ?
+                        <HeartIcon className="h-5 w-5" /> :
+                        <HeartFilledIcon className="h-5 w-5 text-red-600" />
+                    }
                 </Button>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
