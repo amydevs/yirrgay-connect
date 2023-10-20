@@ -37,7 +37,7 @@ const PostContent = () => {
             return;
         }
         setCreatedAt(post.createdAt.toDateString());
-    }, [post?.createdAt]);
+    }, [post]);
 
     const ctx = api.useContext();
     const postsUpdate = api.posts.update.useMutation({

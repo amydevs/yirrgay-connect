@@ -39,18 +39,18 @@ const PostEditor = React.forwardRef<
     }, [theme]);
 
     return (
-        <div ref={ref} className={cn('space-y-3 prose dark:prose-invert', className)} {...props}>
+        <div ref={ref} className={cn('space-y-3 prose-lg dark:prose-invert', className)} {...props}>
             {
                 !readOnly ? (
                     <Input 
                         onChange={(evt) => {onChangeTitle?.(evt.target.value)}}
                         placeholder="Enter A Title..."
                         autoFocus
-                        className="border-none focus-visible:ring-transparent ring-inset text-4xl"
+                        className="border-none focus-visible:ring-transparent ring-inset text-5xl"
                         value={valueTitle}
                     />
                 ) : (
-                    <h1 className="px-3">
+                    <h1 className="px-3 mb-0">
                         { valueTitle }
                     </h1>
                 )
