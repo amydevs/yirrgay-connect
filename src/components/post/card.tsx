@@ -2,8 +2,8 @@ import React from "react";
 import { type Prisma } from "@prisma/client";
 import Link from 'next/link';
 import PostAvatar from "./avatar";
-import { Card, CardHeader, CardTitle, CardFooter } from "../ui/card";
 import PostIteractionPanel from "./interaction-panel";
+import { Card, CardHeader, CardTitle, CardFooter } from "../ui/card";
 
 interface PostCardProps {
     post: Prisma.PostGetPayload<{
