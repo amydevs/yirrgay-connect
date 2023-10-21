@@ -46,7 +46,7 @@ const PostEditor = React.forwardRef<
                         onChange={(evt) => {onChangeTitle?.(evt.target.value)}}
                         placeholder="Enter A Title..."
                         autoFocus
-                        className="border-none focus-visible:ring-transparent ring-inset text-5xl"
+                        className="border-none h-18 focus-visible:ring-transparent ring-inset text-5xl"
                         value={valueTitle}
                     />
                 ) : (
