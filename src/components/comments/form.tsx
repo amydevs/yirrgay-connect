@@ -33,6 +33,7 @@ const CommentForm = ({
   const ctx = api.useContext();
   const commentCreate = api.comments.create.useMutation({
     onSuccess: async () => {
+        form.reset();
         await ctx.posts.getById.invalidate({ id: postId });
     }
   });
