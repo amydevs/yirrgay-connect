@@ -66,6 +66,9 @@ export const postsRouter = createTRPCRouter({
           comments: {
             include: {
               user: true
+            },
+            orderBy: {
+              createdAt: 'desc'
             }
           },
         }
