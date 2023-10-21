@@ -56,37 +56,42 @@ const PostContent = () => {
     };
 
     return (
-        <div className="w-full pt-16 min-h-screen grid">
-            <div className="max-w-6xl w-full mx-auto border-l border-r self-stretch flex flex-col justify-between py-6">
-                <div className="space-y-6 max-w-[99.5vw]">
-                    <PostAvatar className="mx-3" post={post ?? undefined} />
-                    <PostEditor
-                        readOnly={!isEditing}
-                        onChangeTitle={setTitle}
-                        valueTitle={title}
-                        onChangeContent={setContent}
-                        valueContent={content}
-                    />
-                </div>
-                <div className="border-t px-6 pt-6 text-right space-x-3">
-                    { !isEditing ? 
-                        <>
-                            { 
-                                postGet.data?.userId === session.data?.user.id ? <>
-                                    <Button variant='destructive' onClick={deletePost}>Delete</Button>
-                                    <Button onClick={() => setIsEditing(true)}>Edit</Button>
-                                </> : <></> 
-                            }
-                        </>
-                    : 
-                        <>
-                            <Button onClick={() => setIsEditing(false)}>Cancel</Button>
-                            <Button onClick={updatePost}>Submit</Button>
-                        </>
-                    }
+        <>
+            <div className="w-full pt-16 min-h-screen grid">
+                <div className="max-w-6xl w-full mx-auto border-l border-r self-stretch flex flex-col justify-between pt-6">
+                    <div className="space-y-6 max-w-[99.5vw]">
+                        <PostAvatar className="mx-3" post={post ?? undefined} />
+                        <PostEditor
+                            readOnly={!isEditing}
+                            onChangeTitle={setTitle}
+                            valueTitle={title}
+                            onChangeContent={setContent}
+                            valueContent={content}
+                        />
+                    </div>
+                    <div className="sticky bottom-0 border-t p-6 text-right space-x-3">
+                        { !isEditing ? 
+                            <>
+                                { 
+                                    postGet.data?.userId === session.data?.user.id ? <>
+                                        <Button variant='destructive' onClick={deletePost}>Delete</Button>
+                                        <Button onClick={() => setIsEditing(true)}>Edit</Button>
+                                    </> : <></> 
+                                }
+                            </>
+                        : 
+                            <>
+                                <Button onClick={() => setIsEditing(false)}>Cancel</Button>
+                                <Button onClick={updatePost}>Submit</Button>
+                            </>
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
+            {/* <div>
+                Comments
+            </div> */}
+        </>
     );
 }
 

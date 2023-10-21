@@ -37,7 +37,7 @@ const PostNew = () => {
 
     return (
         <div className="w-full pt-16 min-h-screen grid">
-            <div className="max-w-6xl w-full mx-auto border-l border-r self-stretch flex flex-col justify-between py-6">
+            <div className="max-w-6xl w-full mx-auto border-l border-r self-stretch flex flex-col justify-between pt-6">
                 <PostEditor
                     className="max-w-[99.5vw]"
                     onChangeTitle={setTitle}
@@ -45,7 +45,7 @@ const PostNew = () => {
                     onChangeContent={setContent}
                     valueContent={content}
                 />
-                <div className="border-t px-6 pt-6 text-right">
+                <div className="border-t p-6 text-right space-x-3">
                     <Button onClick={submit}>Submit</Button>
                 </div>
             </div>
