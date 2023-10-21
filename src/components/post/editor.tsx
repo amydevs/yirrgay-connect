@@ -58,10 +58,10 @@ const PostEditor = React.forwardRef<
             }
             
             <MDXEditor
-                className={cn(mdxEditorClass, readOnly && styles.readOnlyEditor)}
+                className={cn(mdxEditorClass, styles.postEditor, readOnly && styles.readOnlyEditor)}
                 markdown={valueContent ?? ''}
                 onChange={onChangeContent}
-                placeholder='Start writing...'
+                placeholder='Start writing a post...'
                 readOnly={readOnly}
                 plugins={[
                     toolbarPlugin({

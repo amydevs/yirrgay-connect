@@ -103,6 +103,7 @@ const PostContent = () => {
                         <CommentForm postId={post.id} />
                     </CardContent>
                 </Card> : <></> }
+                { post?.comments.length !== 0 ? <></> : <div className="text-center">No comments yet...</div> }
                 { 
                     post?.comments.map((comment, i) => (
                         <Card key={i}>
