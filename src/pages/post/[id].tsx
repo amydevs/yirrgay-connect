@@ -8,9 +8,8 @@ import PostEditor from "~/components/post/editor";
 import UserAvatar from "~/components/avatar";
 import { cn } from "~/utils/cn";
 import PostIteractionPanel from "~/components/post/interaction-panel";
-import { Card, CardContent, CardFooter, CardHeader } from "~/components/ui/card";
+import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import CommentForm from "~/components/comments/form";
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 
 
 export function getServerSideProps({ params }: GetServerSidePropsContext<{ id: string }>) {

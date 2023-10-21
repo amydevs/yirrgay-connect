@@ -1,5 +1,5 @@
-import { DialogButton, DirectiveDescriptor, directivesPluginHooks } from '@mdxeditor/editor';
-import { LeafDirective } from 'mdast-util-directive';
+import { DialogButton, type DirectiveDescriptor, directivesPluginHooks } from '@mdxeditor/editor';
+import { type LeafDirective } from 'mdast-util-directive';
 
 
 interface ScratchDirectiveNode extends LeafDirective {

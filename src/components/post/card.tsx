@@ -1,8 +1,8 @@
 import React from "react";
 import { type Prisma } from "@prisma/client";
 import Link from 'next/link';
-import UserAvatar from "../avatar";
 import PostIteractionPanel from "./interaction-panel";
+import UserAvatar from "../avatar";
 import { Card, CardHeader, CardTitle, CardFooter } from "../ui/card";
 
 interface PostCardProps {
