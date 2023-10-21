@@ -1,7 +1,7 @@
 import React from "react";
 import { type Prisma } from "@prisma/client";
 import Link from 'next/link';
-import PostAvatar from "./avatar";
+import UserAvatar from "../avatar";
 import PostIteractionPanel from "./interaction-panel";
 import { Card, CardHeader, CardTitle, CardFooter } from "../ui/card";
 
@@ -25,7 +25,7 @@ const PostCard = React.forwardRef<
     return (
         <Card ref={ref} className={className} {...props} >
             <CardHeader className="space-y-6">
-                <PostAvatar post={post} />
+                <UserAvatar user={post.user} createdAt={post.createdAt} />
                 <Link href={`/post/${post.id}`}>
                     <CardTitle>
                         { post.title }
