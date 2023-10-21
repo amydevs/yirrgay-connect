@@ -74,7 +74,7 @@ const PostContent = () => {
                             valueContent={content}
                         />
                     </div>
-                    <div className={cn("border-y p-6 space-x-3 bg-background flex", !isEditing && 'sticky bottom-0')}>
+                    <div className={cn("border-y p-6 space-x-3 bg-background flex justify-end", !isEditing && 'sticky bottom-0')}>
                         { !isEditing ? 
                             <>
                                 { post != null ? <PostIteractionPanel className="w-full justify-around" post={post} /> : <></> }
