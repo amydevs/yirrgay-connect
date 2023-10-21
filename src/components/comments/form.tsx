@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
- 
+import { api } from "~/utils/api"
 import { Button } from "../../components/ui/button"
 import {
   Form,
@@ -11,7 +11,6 @@ import {
   FormMessage,
 } from "../../components/ui/form"
 import { Textarea } from "../ui/textarea"
-import { api } from "~/utils/api"
 
 const formSchema = z.object({
     postId: z.string(),
@@ -44,7 +43,7 @@ const CommentForm = ({
 
   return (
     <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+        <form onSubmit={void form.handleSubmit(onSubmit)} className="space-y-3">
             <FormField
                 control={form.control}
                 name="content"

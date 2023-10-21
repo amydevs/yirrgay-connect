@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { type Prisma } from "@prisma/client";
 import { cn } from "~/utils/cn";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 
 interface UserAvatarProps {
     user: {
         name?: string | null | undefined;
-        email?: string | null | undefined;
         image?: string | null | undefined;
     }
     createdAt: Date;

@@ -6,8 +6,8 @@ import '@mdxeditor/editor/style.css';
 import React from "react";
 import styles from '~/styles/editor.module.css';
 import { cn } from "~/utils/cn";
-import { Input } from "../ui/input";
 import ScratchButton, { ScratchDirectiveDescriptor } from "./directives/scratch";
+import { Input } from "../ui/input";
 
 interface EditorProps {
     readOnly?: boolean;
@@ -146,7 +146,6 @@ const PostEditor = React.forwardRef<
                     thematicBreakPlugin(),
                     codeBlockPlugin({ defaultCodeBlockLanguage: 'txt' }),
                     codeMirrorPlugin({ codeBlockLanguages: { js: 'JavaScript', css: 'CSS', txt: 'text', tsx: 'TypeScript' } }),
-                    // @ts-ignore: Unsafe assignment of type any[] to a variable of type DirectiveDescriptor<any>[]
                     directivesPlugin({ directiveDescriptors: [ScratchDirectiveDescriptor] }),
                     diffSourcePlugin({ viewMode: 'rich-text', diffMarkdown: diffContent ?? valueContent }),
                     markdownShortcutPlugin(),
