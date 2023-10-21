@@ -6,6 +6,7 @@ import { api } from "~/utils/api";
 import { cn } from "~/utils/cn";
 import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "../ui/dropdown-menu";
+import { useRouter } from "next/router";
 
 interface PostIteractionPanelProps {
     post: Prisma.PostGetPayload<{
@@ -25,7 +26,8 @@ const PostIteractionPanel = React.forwardRef<
     ...props
 }, ref) => {
     const session = useSession();
-    
+    const router = useRouter();
+
     const [isLiked, setIsLiked] = useState(false);
 
     const postsLike = api.posts.like.useMutation({
@@ -61,12 +63,14 @@ const PostIteractionPanel = React.forwardRef<
         }
         return prom;
     };
+
+    const postPath = `post/${post.id}`;
     
     return (
         <div ref={ref} className={cn("flex justify-between", className)} {...props}>
             {
                 session.data?.user.role !== "Viewer" &&
-                <Button className="rounded-full" size='icon' variant='ghost'>
+                <Button className="rounded-full" onClick={() => void router.push(`/${postPath}#comments`)} size='icon' variant='ghost'>
                     <ChatBubbleIcon className="h-5 w-5" />
                 </Button>
             }
@@ -83,7 +87,7 @@ const PostIteractionPanel = React.forwardRef<
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56" align="end" forceMount>
-                    <DropdownMenuItem onClick={() => void navigator.clipboard.writeText(`${document.location.origin}/post/${post.id}`)}>
+                    <DropdownMenuItem onClick={() => void navigator.clipboard.writeText( `${document.location.origin}/${postPath}`)}>
                         Copy Link
                     </DropdownMenuItem>
                 </DropdownMenuContent>
