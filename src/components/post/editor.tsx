@@ -1,4 +1,4 @@
-import { MDXEditor, toolbarPlugin, DiffSourceToggleWrapper, ConditionalContents, ChangeCodeMirrorLanguage, UndoRedo, BoldItalicUnderlineToggles, CodeToggle, ListsToggle, BlockTypeSelect, CreateLink, InsertImage, InsertTable, InsertThematicBreak, InsertCodeBlock, listsPlugin, quotePlugin, headingsPlugin, linkPlugin, linkDialogPlugin, imagePlugin, tablePlugin, thematicBreakPlugin, codeBlockPlugin, codeMirrorPlugin, diffSourcePlugin, markdownShortcutPlugin } from "@mdxeditor/editor";
+import { MDXEditor, toolbarPlugin, DiffSourceToggleWrapper, ConditionalContents, ChangeCodeMirrorLanguage, UndoRedo, BoldItalicUnderlineToggles, CodeToggle, ListsToggle, BlockTypeSelect, CreateLink, InsertImage, InsertTable, InsertThematicBreak, InsertCodeBlock, listsPlugin, quotePlugin, headingsPlugin, linkPlugin, linkDialogPlugin, imagePlugin, tablePlugin, thematicBreakPlugin, codeBlockPlugin, codeMirrorPlugin, diffSourcePlugin, markdownShortcutPlugin, directivesPlugin } from "@mdxeditor/editor";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
@@ -7,6 +7,7 @@ import React from "react";
 import styles from '~/styles/editor.module.css';
 import { cn } from "~/utils/cn";
 import { Input } from "../ui/input";
+import ScratchButton, { ScratchDirectiveDescriptor } from "./directives/scratch";
 
 interface EditorProps {
     readOnly?: boolean;
@@ -98,6 +99,7 @@ const PostEditor = React.forwardRef<
 
                                                 <Separator />
                                                 <InsertCodeBlock />
+                                                <ScratchButton />
                                                 {/* <InsertSandpack /> */}
 
                                                 {/* <ConditionalContents
@@ -144,6 +146,7 @@ const PostEditor = React.forwardRef<
                     thematicBreakPlugin(),
                     codeBlockPlugin({ defaultCodeBlockLanguage: 'txt' }),
                     codeMirrorPlugin({ codeBlockLanguages: { js: 'JavaScript', css: 'CSS', txt: 'text', tsx: 'TypeScript' } }),
+                    directivesPlugin({ directiveDescriptors: [ScratchDirectiveDescriptor] }),
                     diffSourcePlugin({ viewMode: 'rich-text', diffMarkdown: diffContent ?? valueContent }),
                     markdownShortcutPlugin(),
                 ]}
