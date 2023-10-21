@@ -69,7 +69,7 @@ const PostIteractionPanel = React.forwardRef<
     return (
         <div ref={ref} className={cn("flex justify-between", className)} {...props}>
             {
-                session.data?.user.role !== "Viewer" &&
+                session.data != null && session.data.user.role !== "Viewer" &&
                 <Button className="rounded-full" onClick={() => void router.push(`/${postPath}#comments`)} size='icon' variant='ghost'>
                     <ChatBubbleIcon className="h-5 w-5" />
                 </Button>
