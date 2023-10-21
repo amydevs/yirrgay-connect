@@ -29,6 +29,10 @@ const PostNew = () => {
     }, [session, router]);
 
     const submit = () => {
+        if (title.length === 0 || content.length === 0) {
+            alert("Title and Content are required");
+            return;
+        }
         postsCreate.mutate({
             title,
             content,
