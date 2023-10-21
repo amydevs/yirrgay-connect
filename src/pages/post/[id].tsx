@@ -6,6 +6,7 @@ import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
 import PostEditor from "~/components/post/editor";
 import PostAvatar from "~/components/post/avatar";
+import { cn } from "~/utils/cn";
 
 
 export function getServerSideProps({ params }: GetServerSidePropsContext<{ id: string }>) {
@@ -58,7 +59,7 @@ const PostContent = () => {
     return (
         <>
             <div className="w-full pt-16 min-h-screen grid">
-                <div className="max-w-6xl w-full mx-auto border-l border-r self-stretch flex flex-col justify-between pt-6">
+                <div className="max-w-6xl w-full mx-auto border-x self-stretch flex flex-col justify-between pt-6">
                     <div className="space-y-6 max-w-[99.5vw]">
                         <PostAvatar className="mx-3" post={post ?? undefined} />
                         <PostEditor
@@ -69,7 +70,7 @@ const PostContent = () => {
                             valueContent={content}
                         />
                     </div>
-                    <div className="sticky bottom-0 border-t p-6 text-right space-x-3">
+                    <div className={cn("border-y p-6 text-right space-x-3 bg-background", !isEditing && 'sticky bottom-0')}>
                         { !isEditing ? 
                             <>
                                 { 
@@ -88,9 +89,9 @@ const PostContent = () => {
                     </div>
                 </div>
             </div>
-            {/* <div>
+            <div className="max-w-6xl w-full mx-auto border-x p-6">
                 Comments
-            </div> */}
+            </div>
         </>
     );
 }
