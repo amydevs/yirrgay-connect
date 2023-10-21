@@ -7,6 +7,7 @@ import { api } from "~/utils/api";
 import PostEditor from "~/components/post/editor";
 import PostAvatar from "~/components/post/avatar";
 import { cn } from "~/utils/cn";
+import PostIteractionPanel from "~/components/post/interaction-panel";
 
 
 export function getServerSideProps({ params }: GetServerSidePropsContext<{ id: string }>) {
@@ -70,14 +71,15 @@ const PostContent = () => {
                             valueContent={content}
                         />
                     </div>
-                    <div className={cn("border-y p-6 text-right space-x-3 bg-background", !isEditing && 'sticky bottom-0')}>
+                    <div className={cn("border-y p-6 space-x-3 bg-background flex", !isEditing && 'sticky bottom-0')}>
                         { !isEditing ? 
                             <>
+                                { post != null ? <PostIteractionPanel className="w-full justify-around" post={post} /> : <></> }
                                 { 
                                     postGet.data?.userId === session.data?.user.id ? <>
                                         <Button variant='destructive' onClick={deletePost}>Delete</Button>
                                         <Button onClick={() => setIsEditing(true)}>Edit</Button>
-                                    </> : <></> 
+                                    </> : <></>
                                 }
                             </>
                         : 
