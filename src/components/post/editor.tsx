@@ -146,6 +146,7 @@ const PostEditor = React.forwardRef<
                     thematicBreakPlugin(),
                     codeBlockPlugin({ defaultCodeBlockLanguage: 'txt' }),
                     codeMirrorPlugin({ codeBlockLanguages: { js: 'JavaScript', css: 'CSS', txt: 'text', tsx: 'TypeScript' } }),
+                    // @ts-ignore: Unsafe assignment of type any[] to a variable of type DirectiveDescriptor<any>[]
                     directivesPlugin({ directiveDescriptors: [ScratchDirectiveDescriptor] }),
                     diffSourcePlugin({ viewMode: 'rich-text', diffMarkdown: diffContent ?? valueContent }),
                     markdownShortcutPlugin(),
