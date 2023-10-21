@@ -67,7 +67,7 @@ const PostIteractionPanel = React.forwardRef<
     const postPath = `post/${post.id}`;
     
     return (
-        <div ref={ref} className={cn("flex justify-between", className)} {...props}>
+        <div ref={ref} className={cn("flex justify-around", className)} {...props}>
             {
                 session.data != null && session.data.user.role !== "Viewer" &&
                 <Button className="rounded-full" onClick={() => void router.push(`/${postPath}#comments`)} size='icon' variant='ghost'>
