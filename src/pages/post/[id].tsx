@@ -47,6 +47,10 @@ const PostContent = () => {
     })
 
     const updatePost = () => {
+        if (title.length === 0 || content.length === 0) {
+            alert("Title and Content are required");
+            return;
+        }
         postsUpdate.mutate({
             id,
             title,
