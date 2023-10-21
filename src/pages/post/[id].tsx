@@ -5,9 +5,12 @@ import { type GetServerSidePropsContext } from "next";
 import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
 import PostEditor from "~/components/post/editor";
-import PostAvatar from "~/components/post/avatar";
+import UserAvatar from "~/components/avatar";
 import { cn } from "~/utils/cn";
 import PostIteractionPanel from "~/components/post/interaction-panel";
+import { Card, CardContent, CardFooter, CardHeader } from "~/components/ui/card";
+import CommentForm from "~/components/comments/form";
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 
 
 export function getServerSideProps({ params }: GetServerSidePropsContext<{ id: string }>) {
@@ -62,7 +65,7 @@ const PostContent = () => {
             <div className="w-full pt-16 min-h-screen grid">
                 <div className="max-w-6xl w-full mx-auto border-x self-stretch flex flex-col justify-between pt-6">
                     <div className="space-y-6 max-w-[99.5vw]">
-                        <PostAvatar className="mx-3" post={post ?? undefined} />
+                        { post != null ? <UserAvatar className="mx-3" user={post.user} createdAt={post.createdAt} /> : <></> }
                         <PostEditor
                             readOnly={!isEditing}
                             onChangeTitle={setTitle}
@@ -91,8 +94,28 @@ const PostContent = () => {
                     </div>
                 </div>
             </div>
-            <div className="max-w-6xl w-full mx-auto border-x p-6" id="comments">
-                Comments
+            <div className="max-w-6xl w-full mx-auto border-x p-6 space-y-3" id="comments">
+                <div>Comments</div>
+                { post != null && session.data != null && session.data.user.role !== 'Viewer' ? <Card>
+                    <CardHeader className="flex flex-1 items-start">
+                        <UserAvatar user={session.data.user} createdAt={new Date()} />
+                    </CardHeader>
+                    <CardContent>
+                        <CommentForm postId={post.id} />
+                    </CardContent>
+                </Card> : <></> }
+                { 
+                    post?.comments.map((comment, i) => (
+                        <Card key={i}>
+                            <CardHeader className="flex flex-1 items-start">
+                                <UserAvatar user={comment.user} createdAt={comment.createdAt} />
+                            </CardHeader>
+                            <CardContent>
+                                { comment.content }
+                            </CardContent>
+                        </Card>
+                    )) ?? <></>
+                }
             </div>
         </>
     );
