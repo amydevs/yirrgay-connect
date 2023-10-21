@@ -1,3 +1,7 @@
 .readOnlyEditor div[role="toolbar"] {
-    display: none;
+    @apply hidden;
+}
+
+.postEditor div[role="toolbar"] {
+    @apply rounded-none;
 }
