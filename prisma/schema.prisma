@@ -56,7 +56,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  role          Role      @default(Creator)
+  role          Role      @default(Viewer)
   posts         Post[]
   likes         Like[]
   comments      Comment[]
