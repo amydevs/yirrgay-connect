@@ -111,7 +111,9 @@ const PostContent = () => {
                                 <UserAvatar user={comment.user} createdAt={comment.createdAt} />
                             </CardHeader>
                             <CardContent>
-                                { comment.content }
+                                <p>
+                                    { comment.content }
+                                </p>
                             </CardContent>
                         </Card>
                     )) ?? <></>
