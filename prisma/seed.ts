@@ -18,7 +18,7 @@ async function main() {
         update: {},
         create: {
             email: 'info@dawulwuru.com.au',
-            image: '/images/dawulwuru.jpg',
+            image: '/images/dawulwuru.png',
             emailVerified: new Date(),
             name: 'Dawul Wuru Corporation',
             role: 'Moderator',
