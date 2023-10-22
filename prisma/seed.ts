@@ -24,7 +24,29 @@ async function main() {
             role: 'Moderator',
         }
     });
-    console.log({ ewbUser, dwUser });
+    const viewerUser = await prisma.user.upsert({
+        where: { email: 'viewer@gmail.com' },
+        update: {},
+        create: {
+            email: 'viewer@gmail.com',
+            image: 'https://i0.wp.com/cdn.auth0.com/avatars/vi.png?ssl=1',
+            emailVerified: new Date(),
+            name: 'Viewer User',
+            role: 'Viewer',
+        }
+    });
+    const creatorUser = await prisma.user.upsert({
+        where: { email: 'creator@gmail.com' },
+        update: {},
+        create: {
+            email: 'creator@gmail.com',
+            image: 'https://i0.wp.com/cdn.auth0.com/avatars/cr.png?ssl=1',
+            emailVerified: new Date(),
+            name: 'Creator User',
+            role: 'Creator',
+        }
+    });
+    console.log({ ewbUser, dwUser, viewerUser, creatorUser });
 }
 
 main()
