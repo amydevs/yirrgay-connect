@@ -22,6 +22,12 @@ async function main() {
             emailVerified: new Date(),
             name: 'Dawul Wuru Corporation',
             role: 'Moderator',
+            posts: {
+                create: {
+                    title: 'Welcome to the YirrgayConnect!',
+                    content: 'Welcome to the YirrgayConnect!'
+                }
+            }
         }
     });
     const viewerUser = await prisma.user.upsert({
