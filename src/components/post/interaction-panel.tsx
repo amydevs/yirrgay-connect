@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { type Prisma } from "@prisma/client";
 import { ChatBubbleIcon, Share1Icon, HeartIcon, HeartFilledIcon } from "@radix-ui/react-icons";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 import { cn } from "~/utils/cn";
@@ -51,6 +51,14 @@ const PostIteractionPanel = React.forwardRef<
     }, [post.likes, session.data]);
     
     const toggleLike = () => {
+        if (session.status === "loading") {
+            return;
+        }
+        else if (session.status === "unauthenticated") {
+            void signIn('auth0');
+            return;
+        }
+
         const desiredIsLiked = !isLiked;
         setIsLiked(desiredIsLiked);
         const input = { id: post.id };
@@ -74,12 +82,15 @@ const PostIteractionPanel = React.forwardRef<
                     <ChatBubbleIcon className="h-5 w-5" />
                 </Button>
             }
-            <Button onClick={() => void toggleLike()} className="rounded-full" size='icon' variant='ghost'>
-                { !isLiked ?
-                    <HeartIcon className="h-5 w-5" /> :
-                    <HeartFilledIcon className="h-5 w-5 text-red-600" />
-                }
-            </Button>
+            <div className="flex">
+                <Button onClick={() => void toggleLike()} className="rounded-full" size='icon' variant='ghost'>
+                    { !isLiked ?
+                        <HeartIcon className="h-5 w-5" /> :
+                        <HeartFilledIcon className="h-5 w-5 text-red-600" />
+                    }
+                </Button>
+                <p className="leading-10">{ post.likes.length }</p>
+            </div>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button className="rounded-full" size='icon' variant='ghost'>
