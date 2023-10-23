@@ -1,26 +1,33 @@
-import { type JsxComponentDescriptor, realmPlugin, system, coreSystem } from "@mdxeditor/editor";
-import { MdastHtmlVisitor } from "./MdastHtmlVisitor";
-import { $createHtmlNode, HtmlNode } from "./HTMLNode";
-import { LexicalHtmlVisitor } from "./LexicalHtmlVisitor";
+import {
+  type JsxComponentDescriptor,
+  realmPlugin,
+  system,
+  coreSystem,
+} from '@mdxeditor/editor';
+import { MdastHtmlVisitor } from './MdastHtmlVisitor';
+import { $createHtmlNode, HtmlNode } from './HTMLNode';
+import { LexicalHtmlVisitor } from './LexicalHtmlVisitor';
 
-const contentDescriptors: JsxComponentDescriptor[] = [{
-  name: 'html',
-  kind: 'text',
-  hasChildren: false,
-  props: [],
-  Editor: () => {
-    return <></>
-  }
-}];
+const contentDescriptors: JsxComponentDescriptor[] = [
+  {
+    name: 'html',
+    kind: 'text',
+    hasChildren: false,
+    props: [],
+    Editor: () => {
+      return <></>;
+    },
+  },
+];
 
 interface InsertHtmlPayload {
-  value: string
+  value: string;
 }
 
 /** @internal */
 export const htmlSystem = system(
   (r, [{ insertDecoratorNode }]) => {
-    const insertHtml = r.node<InsertHtmlPayload>()
+    const insertHtml = r.node<InsertHtmlPayload>();
 
     r.link(
       r.pipe(
@@ -30,31 +37,31 @@ export const htmlSystem = system(
             $createHtmlNode({
               type: 'html',
               value,
-            })
-        })
+            });
+        }),
       ),
-      insertDecoratorNode
-    )
+      insertDecoratorNode,
+    );
 
     return {
-      insertHtml
-    }
+      insertHtml,
+    };
   },
-  [coreSystem]
-)
+  [coreSystem],
+);
 
 export const [htmlPlugin, htmlPluginHooks] = realmPlugin({
-    id: "html",
-    systemSpec: htmlSystem,
-    applyParamsToSystem: (realm) => {
-      realm.pubKey('jsxComponentDescriptors', contentDescriptors);
-    },
-    init: (realm) => {
-      // import
-      realm.pubKey("addImportVisitor", MdastHtmlVisitor);
+  id: 'html',
+  systemSpec: htmlSystem,
+  applyParamsToSystem: (realm) => {
+    realm.pubKey('jsxComponentDescriptors', contentDescriptors);
+  },
+  init: (realm) => {
+    // import
+    realm.pubKey('addImportVisitor', MdastHtmlVisitor);
 
-      // export
-      realm.pubKey('addLexicalNode', HtmlNode);
-      realm.pubKey('addExportVisitor', LexicalHtmlVisitor);
-    }
+    // export
+    realm.pubKey('addLexicalNode', HtmlNode);
+    realm.pubKey('addExportVisitor', LexicalHtmlVisitor);
+  },
 });
