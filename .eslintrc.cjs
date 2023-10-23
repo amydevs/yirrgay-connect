@@ -15,6 +15,7 @@ const config = {
     // These opinionated rules are enabled in stylistic-type-checked above.
     // Feel free to reconfigure them to your own preference.
     "linebreak-style": ["error", "unix"],
+    "eqeqeq": ["error", "smart"],
     "import/order": [
       "error",
       {
