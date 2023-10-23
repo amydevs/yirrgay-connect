@@ -1,7 +1,7 @@
+import type { GetServerSidePropsContext } from 'next';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { type GetServerSidePropsContext } from 'next';
 import { Button } from '~/components/ui/button';
 import { api } from '~/utils/api';
 import PostEditor from '~/components/post/editor';

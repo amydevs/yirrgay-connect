@@ -1,6 +1,6 @@
-import { type Session } from 'next-auth';
+import type { Session } from 'next-auth';
+import type { AppType } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
-import { type AppType } from 'next/app';
 import { Inter as FontSans } from 'next/font/google';
 import { api } from '~/utils/api';
 import ThemeProvider from '~/components/theme-provider';

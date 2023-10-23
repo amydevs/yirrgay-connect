@@ -1,6 +1,6 @@
 import type { Role } from '@prisma/client';
+import type { GetServerSidePropsContext } from 'next';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { type GetServerSidePropsContext } from 'next';
 import {
   getServerSession,
   type DefaultSession,
