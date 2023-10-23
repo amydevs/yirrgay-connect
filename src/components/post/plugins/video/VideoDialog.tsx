@@ -13,15 +13,18 @@ import { htmlPluginHooks } from "../html"
 
 const formSchema = z.object({
     file: z.instanceof(File).optional(),
-    src: z.string().min(1, {
-        message: "Source is required",
-    }).optional(),
+    src: z.string().optional(),
     title: z.string().optional()
 });
 
 export const VideoDialog = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
+        defaultValues: {
+            file: undefined,
+            src: '',
+            title: '',
+        }
     })
     const [editorRootElementRef] = corePluginHooks.useEmitterValues('editorRootElementRef')
     const [state] = videoPluginHooks.useEmitterValues('videoDialogState');
@@ -65,7 +68,7 @@ export const VideoDialog = () => {
                 <DialogOverlay />
                 <DialogContent>
                     <Form {...form}>
-                        <form onSubmit={void form.handleSubmit(onSubmit)} className="space-y-8">
+                        <form onSubmit={(evt) => void form.handleSubmit(onSubmit)(evt)} className="space-y-8">
                             <FormField
                                 control={form.control}
                                 name="file"
@@ -73,7 +76,7 @@ export const VideoDialog = () => {
                                     <FormItem>
                                         <FormLabel>Upload a video from your device:</FormLabel>
                                             <FormControl>
-                                                <Input accept='video/*' {...field} value={(value as unknown as { fileName: string }).fileName} type='file' placeholder="Browse..." onChange={(evt) => {onChange(evt.target.files?.[0])}} />
+                                                <Input accept='video/*' {...field} value={(value as unknown as { fileName: string })?.fileName} type='file' placeholder="Browse..." onChange={(evt) => {onChange(evt.target.files?.[0])}} />
                                             </FormControl>
                                         <FormMessage />
                                     </FormItem>
