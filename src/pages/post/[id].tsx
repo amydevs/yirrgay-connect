@@ -34,11 +34,12 @@ const PostContent = () => {
 
   const [title, setTitle] = useState(post?.title ?? '');
   const [content, setContent] = useState(post?.content ?? '');
-  const [isEditing, setIsEditing] = useState(false);
+  const [editContentBackup, setEditContentBackup] = useState<string | null>(null);
+  const isEditing = editContentBackup != null;
 
   const ctx = api.useContext();
   const postsUpdate = api.posts.update.useMutation({
-    onSuccess: () => setIsEditing(false),
+    onSuccess: () => setEditContentBackup(null),
   });
   const postsDelete = api.posts.delete.useMutation({
     onSuccess: async () => {
@@ -104,7 +105,7 @@ const PostContent = () => {
                     <Button variant="destructive" onClick={deletePost}>
                       Delete
                     </Button>
-                    <Button onClick={() => setIsEditing(true)}>Edit</Button>
+                    <Button onClick={() => setEditContentBackup(content)}>Edit</Button>
                   </>
                 ) : (
                   <></>
@@ -112,7 +113,10 @@ const PostContent = () => {
               </>
             ) : (
               <>
-                <Button onClick={() => setIsEditing(false)}>Cancel</Button>
+                <Button onClick={() => {
+                  setContent(editContentBackup);
+                  setEditContentBackup(null);
+                }}>Cancel</Button>
                 <Button onClick={updatePost}>Submit</Button>
               </>
             )}
