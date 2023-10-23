@@ -7,13 +7,13 @@
  * need to use are documented accordingly near the end.
  */
 
-import { initTRPC, TRPCError } from "@trpc/server";
-import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
-import { type Session } from "next-auth";
-import superjson from "superjson";
-import { ZodError } from "zod";
-import { getServerAuthSession } from "~/server/auth";
-import { prisma } from "~/server/db";
+import { initTRPC, TRPCError } from '@trpc/server';
+import { type CreateNextContextOptions } from '@trpc/server/adapters/next';
+import { type Session } from 'next-auth';
+import superjson from 'superjson';
+import { ZodError } from 'zod';
+import { getServerAuthSession } from '~/server/auth';
+import { prisma } from '~/server/db';
 
 /**
  * 1. CONTEXT
@@ -109,7 +109,7 @@ export const publicProcedure = t.procedure;
 /** Reusable middleware that enforces users are logged in before running the procedure. */
 const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   if (!ctx.session?.user) {
-    throw new TRPCError({ code: "UNAUTHORIZED" });
+    throw new TRPCError({ code: 'UNAUTHORIZED' });
   }
   return next({
     ctx: {
@@ -118,7 +118,6 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
     },
   });
 });
-
 
 /**
  * Protected (authenticated) procedure
@@ -133,7 +132,7 @@ export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);
 /** Reusable middleware that enforces users are not `Viewer` before running the procedure. */
 const enforceUserIsNotViewer = t.middleware(({ ctx, next }) => {
   if (!ctx.session?.user || ctx.session.user.role === 'Viewer') {
-    throw new TRPCError({ code: "UNAUTHORIZED" });
+    throw new TRPCError({ code: 'UNAUTHORIZED' });
   }
   return next({
     ctx: {
@@ -151,4 +150,6 @@ const enforceUserIsNotViewer = t.middleware(({ ctx, next }) => {
  *
  * @see https://trpc.io/docs/procedures
  */
-export const creatorProtectedProcedure = t.procedure.use(enforceUserIsAuthed).use(enforceUserIsNotViewer);
+export const creatorProtectedProcedure = t.procedure
+  .use(enforceUserIsAuthed)
+  .use(enforceUserIsNotViewer);
