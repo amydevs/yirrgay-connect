@@ -7,6 +7,9 @@ import React from "react";
 import styles from '~/styles/editor.module.css';
 import { cn } from "~/utils/cn";
 import ScratchButton, { ScratchDirectiveDescriptor } from "./directives/scratch";
+import { htmlPlugin } from "./plugins/html/index";
+import { InsertVideo } from "./plugins/toolbar/InsertVideo";
+import { videoPlugin } from "./plugins/video";
 import { Input } from "../ui/input";
 
 interface EditorProps {
@@ -91,6 +94,7 @@ const PostEditor = React.forwardRef<
 
                                                 <CreateLink />
                                                 <InsertImage />
+                                                <InsertVideo />
 
                                                 <Separator />
 
@@ -142,6 +146,7 @@ const PostEditor = React.forwardRef<
                             return result;
                         },
                     }),
+                    videoPlugin(),
                     tablePlugin(),
                     thematicBreakPlugin(),
                     codeBlockPlugin({ defaultCodeBlockLanguage: 'txt' }),
@@ -149,6 +154,7 @@ const PostEditor = React.forwardRef<
                     directivesPlugin({ directiveDescriptors: [ScratchDirectiveDescriptor] }),
                     diffSourcePlugin({ viewMode: 'rich-text', diffMarkdown: diffContent ?? valueContent }),
                     markdownShortcutPlugin(),
+                    htmlPlugin(),
                 ]}
                 contentEditableClassName="prose-lg dark:prose-invert"
             />
