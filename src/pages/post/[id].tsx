@@ -34,7 +34,9 @@ const PostContent = () => {
 
   const [title, setTitle] = useState(post?.title ?? '');
   const [content, setContent] = useState(post?.content ?? '');
-  const [editContentBackup, setEditContentBackup] = useState<string | null>(null);
+  const [editContentBackup, setEditContentBackup] = useState<string | null>(
+    null,
+  );
   const isEditing = editContentBackup != null;
 
   const ctx = api.useContext();
@@ -105,7 +107,9 @@ const PostContent = () => {
                     <Button variant="destructive" onClick={deletePost}>
                       Delete
                     </Button>
-                    <Button onClick={() => setEditContentBackup(content)}>Edit</Button>
+                    <Button onClick={() => setEditContentBackup(content)}>
+                      Edit
+                    </Button>
                   </>
                 ) : (
                   <></>
@@ -113,10 +117,14 @@ const PostContent = () => {
               </>
             ) : (
               <>
-                <Button onClick={() => {
-                  setContent(editContentBackup);
-                  setEditContentBackup(null);
-                }}>Cancel</Button>
+                <Button
+                  onClick={() => {
+                    setContent(editContentBackup);
+                    setEditContentBackup(null);
+                  }}
+                >
+                  Cancel
+                </Button>
                 <Button onClick={updatePost}>Submit</Button>
               </>
             )}

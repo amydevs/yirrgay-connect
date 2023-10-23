@@ -1,6 +1,11 @@
 import type { DirectiveDescriptor } from '@mdxeditor/editor';
 import type { LeafDirective } from 'mdast-util-directive';
-import { DialogButton, directivesPluginHooks } from '@mdxeditor/editor';
+import {
+  DialogButton,
+  corePluginHooks,
+  directivesPluginHooks,
+} from '@mdxeditor/editor';
+import { Button } from '~/components/ui/button';
 
 interface ScratchDirectiveNode extends LeafDirective {
   name: 'scratch';
@@ -17,6 +22,7 @@ export const ScratchDirectiveDescriptor: DirectiveDescriptor<ScratchDirectiveNod
     attributes: ['id'],
     hasChildren: false,
     Editor: ({ mdastNode, lexicalNode, parentEditor }) => {
+      const [readOnly] = corePluginHooks.useEmitterValues('readOnly');
       return (
         <div
           style={{
@@ -25,16 +31,21 @@ export const ScratchDirectiveDescriptor: DirectiveDescriptor<ScratchDirectiveNod
             alignItems: 'flex-start',
           }}
         >
-          <button
-            onClick={() => {
-              parentEditor.update(() => {
-                lexicalNode.selectNext();
-                lexicalNode.remove();
-              });
-            }}
-          >
-            delete
-          </button>
+          {!readOnly ? (
+            <Button
+              variant="ghost"
+              onClick={() => {
+                parentEditor.update(() => {
+                  lexicalNode.selectNext();
+                  lexicalNode.remove();
+                });
+              }}
+            >
+              Delete
+            </Button>
+          ) : (
+            <></>
+          )}
           <iframe
             src={`https://scratch.mit.edu/projects/${mdastNode.attributes?.id}/embed`}
             allowTransparency
