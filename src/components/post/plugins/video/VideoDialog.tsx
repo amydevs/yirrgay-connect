@@ -65,7 +65,7 @@ export const VideoDialog = () => {
     insertHtml({
       value: `<video ${
         title != null ? `title="${title}"` : ''
-      } src="${vidSrc}" controls />`,
+      } src="${vidSrc}" controls style="width: 100%;" />`,
     });
     closeVideoDialog(true);
   };
