@@ -1,8 +1,8 @@
 import React from 'react';
-import * as RadixToolbar from '@radix-ui/react-toolbar';
 import { TooltipWrap, corePluginHooks } from '@mdxeditor/editor';
 import { VideoIcon } from '@radix-ui/react-icons';
 import { videoPluginHooks } from '../video';
+import { Button } from '~/components/ui/button';
 
 /**
  * A toolbar button that allows the user to insert an image from an URL.
@@ -17,15 +17,17 @@ export const InsertVideo = React.forwardRef<
   const [readOnly] = corePluginHooks.useEmitterValues('readOnly');
 
   return (
-    <RadixToolbar.Button
+    <Button
+      variant='ghost'
+      className='h-10 w-8'
       ref={forwardedRef}
       disabled={readOnly}
       onClick={() => openNewImageDialog(true)}
     >
       <TooltipWrap title="Insert video">
-        <VideoIcon className="h-4 w-4" />
+        <VideoIcon className="h-5 w-5" />
       </TooltipWrap>
-    </RadixToolbar.Button>
+    </Button>
   );
 });
 
