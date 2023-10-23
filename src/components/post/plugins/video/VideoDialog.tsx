@@ -138,7 +138,7 @@ export const VideoDialog = () => {
                   </FormItem>
                 )}
               />
-              <div className='text-right'>
+              <div className="text-right">
                 <Button type="submit">Submit</Button>
               </div>
             </form>
