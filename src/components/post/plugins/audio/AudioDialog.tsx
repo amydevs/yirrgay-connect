@@ -65,7 +65,7 @@ export const AudioDialog = () => {
     insertHtml({
       value: `<audio ${
         title != null ? `title="${title}"` : ''
-      } src="${vidSrc}" controls />`,
+      } src="${vidSrc}" controls style="width: 100%;" />`,
     });
     closeAudioDialog(true);
   };
