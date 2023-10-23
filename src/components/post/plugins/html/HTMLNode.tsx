@@ -1,6 +1,7 @@
-import { type NodeKey } from '@mdxeditor/editor';
-import { type HTML } from 'mdast';
-import { DecoratorNode, type LexicalNode } from 'lexical';
+import type { NodeKey } from '@mdxeditor/editor';
+import type { HTML } from 'mdast';
+import type { LexicalNode } from 'lexical';
+import { DecoratorNode } from 'lexical';
 
 export class HtmlNode extends DecoratorNode<JSX.Element> {
   __mdastNode: HTML;

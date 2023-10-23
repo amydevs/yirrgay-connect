@@ -1,9 +1,7 @@
-import {
-  type MdxJsxFlowElement,
-  type MdxJsxTextElement,
-} from 'mdast-util-mdx-jsx';
-import { type LexicalExportVisitor } from '@mdxeditor/editor';
-import { $isHtmlNode, type HtmlNode } from './HTMLNode';
+import type { LexicalExportVisitor } from '@mdxeditor/editor';
+import type { HtmlNode } from './HTMLNode';
+import type { MdxJsxFlowElement, MdxJsxTextElement } from 'mdast-util-mdx-jsx';
+import { $isHtmlNode } from './HTMLNode';
 
 export const LexicalHtmlVisitor: LexicalExportVisitor<
   HtmlNode,

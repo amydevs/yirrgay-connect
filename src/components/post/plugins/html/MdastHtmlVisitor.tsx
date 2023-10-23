@@ -1,6 +1,6 @@
-import { type ElementNode } from 'lexical';
-import { type HTML } from 'mdast';
-import { type MdastImportVisitor } from '@mdxeditor/editor';
+import type { ElementNode } from 'lexical';
+import type { HTML } from 'mdast';
+import type { MdastImportVisitor } from '@mdxeditor/editor';
 import { $createHtmlNode } from './HTMLNode';
 
 export const MdastHtmlVisitor: MdastImportVisitor<HTML> = {

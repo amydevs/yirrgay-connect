@@ -1,5 +1,5 @@
+import type { Prisma } from '@prisma/client';
 import React from 'react';
-import { type Prisma } from '@prisma/client';
 import Link from 'next/link';
 import PostIteractionPanel from './interaction-panel';
 import UserAvatar from '../avatar';
