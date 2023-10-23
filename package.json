@@ -9,6 +9,7 @@
     "prisma": "prisma",
     "shadcn": "npx shadcn-ui@latest",
     "lint": "next lint",
+    "lintfix": "next lint --fix",
     "start": "next start"
   },
   "prisma": {
