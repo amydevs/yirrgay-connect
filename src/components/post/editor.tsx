@@ -41,6 +41,8 @@ import ScratchButton, {
 import { htmlPlugin } from './plugins/html/index';
 import { InsertVideo } from './plugins/toolbar/InsertVideo';
 import { videoPlugin } from './plugins/video';
+import { audioPlugin } from './plugins/audio';
+import { InsertAudio } from './plugins/toolbar/InsertAudio';
 import { Input } from '../ui/input';
 
 interface EditorProps {
@@ -142,6 +144,7 @@ const PostEditor = React.forwardRef<
                               <CreateLink />
                               <InsertImage />
                               <InsertVideo />
+                              <InsertAudio />
 
                               <Separator />
 
@@ -195,6 +198,7 @@ const PostEditor = React.forwardRef<
               },
             }),
             videoPlugin(),
+            audioPlugin(),
             tablePlugin(),
             thematicBreakPlugin(),
             codeBlockPlugin({ defaultCodeBlockLanguage: 'txt' }),
