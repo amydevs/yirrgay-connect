@@ -11,6 +11,31 @@ async function main() {
             emailVerified: new Date(),
             name: 'Engineers Without Borders',
             role: 'Moderator',
+            posts: {
+                create: {
+                    title: 'Multimedia Showcase',
+                    content:
+`## Text
+
+Welcome to YirrgayConnect!
+
+## Video
+
+<video title="" src="https://github.com/Eyevinn/mp4ff/raw/master/examples/multitrack/testdata/main_1.mp4" controls style="width: 100%;" />
+
+## Audio
+
+<audio title="" src="https://www.myinstants.com/media/sounds/sorting-algorythim.mp3" controls style="width: 100%;" />
+
+## Scratch
+
+::scratch{#10012676}
+
+## Image
+
+![DawulWuru](/images/dawulwuru.png)`
+                }
+            }
         }
     });
     const dwUser = await prisma.user.upsert({
