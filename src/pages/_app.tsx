@@ -24,11 +24,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 				}
 			}`}</style>
       <SessionProvider session={session}>
-        <ThemeProvider
-          attribute="class"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" enableSystem disableTransitionOnChange>
           <NavBar />
           <Component {...pageProps} />
         </ThemeProvider>
