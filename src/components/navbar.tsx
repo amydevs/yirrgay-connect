@@ -44,8 +44,9 @@ const NavBar = () => {
     <div className="fixed top-0 left-0 right-0 z-50 border-b bg-background">
       <div className="flex h-16 items-center px-8 max-w-7xl mx-auto">
         <Link href="/">
-          <div className="text-center bg-secondary dark:bg-primary-foreground rounded h-9 w-9 mr-6">
-            <span className="leading-9">YC</span>
+          <div className="text-center bg-secondary dark:bg-primary-foreground rounded h-9 w-9 sm:w-auto sm:px-3 mr-6">
+            <span className="leading-9 sm:inline hidden">YirrgayConnect</span>
+            <span className="leading-9 inline sm:hidden">YC</span>
           </div>
         </Link>
         <nav className="flex items-center space-x-4 lg:space-x-6 mx-6">
