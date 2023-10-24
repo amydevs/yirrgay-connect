@@ -82,12 +82,21 @@ export const postsRouter = createTRPCRouter({
         },
       });
     }),
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.post.findMany({
-      orderBy: { createdAt: 'desc' },
-      include: { user: true, likes: true },
-    });
-  }),
+  getAll: publicProcedure
+    .input(z.object({
+      search: z.string().optional()
+    }))
+    .query(({ ctx, input }) => {
+      return ctx.prisma.post.findMany({
+        where: input.search != null && input.search.length !== 0 ? {
+          title: {
+            search: input.search
+          }
+        } : undefined,
+        orderBy: { createdAt: 'desc' },
+        include: { user: true, likes: true },
+      });
+    }),
   like: protectedProcedure
     .input(
       z.object({

@@ -13,7 +13,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 };
 
 const Home = () => {
-  const postsQuery = api.posts.getAll.useQuery();
+  const postsQuery = api.posts.getAll.useQuery({});
 
   const posts = postsQuery.data;
 
