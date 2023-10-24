@@ -26,7 +26,6 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <SessionProvider session={session}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
