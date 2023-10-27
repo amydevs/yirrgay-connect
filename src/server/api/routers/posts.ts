@@ -93,15 +93,18 @@ export const postsRouter = createTRPCRouter({
         where:
           input.search != null && input.search.length !== 0
             ? {
-                OR: [{
-                  title: {
-                    search: input.search
-                  }
-                }, {
-                  content: {
-                    search: input.search
-                  }
-                }] 
+                OR: [
+                  {
+                    title: {
+                      search: input.search,
+                    },
+                  },
+                  {
+                    content: {
+                      search: input.search,
+                    },
+                  },
+                ],
               }
             : undefined,
         orderBy: { createdAt: 'desc' },
