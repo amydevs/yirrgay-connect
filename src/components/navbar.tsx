@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { useTheme } from 'next-themes';
 // import { cn } from '~/utils/cn';
+import Image from 'next/image';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -42,13 +43,21 @@ const NavBar = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b bg-background">
+    <header className="fixed top-0 left-0 right-0 z-50 border-b bg-amber-600 dark:bg-amber-700">
       <div className="flex h-16 items-center px-8 max-w-7xl mx-auto">
         <Link href="/">
-          <div className="text-center bg-secondary dark:bg-primary-foreground rounded h-9 w-9 sm:w-auto sm:px-3 mr-6">
+          <div className="mr-6">
+            <Image
+              src="/YirrgayConnectLogo.png"
+              alt="logo"
+              width={191}
+              height={36}
+            />
+          </div>
+          {/* <div className="text-center bg-secondary dark:bg-primary-foreground rounded h-9 w-9 sm:w-auto sm:px-3 mr-6">
             <span className="leading-9 sm:inline hidden">YirrgayConnect</span>
             <span className="leading-9 inline sm:hidden">YC</span>
-          </div>
+          </div> */}
         </Link>
         {/* <nav className="flex items-center space-x-4 lg:space-x-6 mx-6">
           {routes.map((route, i) => (
