@@ -83,16 +83,27 @@ export const postsRouter = createTRPCRouter({
       });
     }),
   getAll: publicProcedure
-    .input(z.object({
-      search: z.string().optional()
-    }))
+    .input(
+      z.object({
+        search: z.string().optional(),
+      }),
+    )
     .query(({ ctx, input }) => {
       return ctx.prisma.post.findMany({
-        where: input.search != null && input.search.length !== 0 ? {
-          title: {
-            search: input.search
-          }
-        } : undefined,
+        where:
+          input.search != null && input.search.length !== 0
+            ? {
+                OR: [{
+                  title: {
+                    search: input.search
+                  }
+                }, {
+                  content: {
+                    search: input.search
+                  }
+                }] 
+              }
+            : undefined,
         orderBy: { createdAt: 'desc' },
         include: { user: true, likes: true },
       });
