@@ -39,7 +39,10 @@ const CommentForm = ({ postId }: { postId: string }) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={void form.handleSubmit(onSubmit)} className="space-y-3">
+      <form
+        onSubmit={(e) => void form.handleSubmit(onSubmit)(e)}
+        className="space-y-3"
+      >
         <FormField
           control={form.control}
           name="content"
