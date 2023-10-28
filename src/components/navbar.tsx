@@ -5,8 +5,8 @@ import { BellIcon } from '@radix-ui/react-icons';
 import { useRouter } from 'next/router';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { useTheme } from 'next-themes';
-// import { cn } from '~/utils/cn';
 import Image from 'next/image';
+import { cn } from '~/utils/cn';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -96,7 +96,10 @@ const NavBar = () => {
             <>
               <Link
                 href="/post/new"
-                className={buttonVariants({ variant: 'outline' })}
+                className={cn(
+                  buttonVariants({ variant: 'outline' }),
+                  'sm:inline min-w-fit hidden',
+                )}
               >
                 Create Post
               </Link>
